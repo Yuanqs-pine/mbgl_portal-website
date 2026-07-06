@@ -375,6 +375,8 @@
     display: inline-block; padding: 2px 12px; border-radius: 5px;
     font-size: 0.8rem; vertical-align: middle; margin-left: 12px; color: #fff; font-weight: 600;
   }
+  .portal-dp__text h2 .tag[data-gallery] { cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+  .portal-dp__text h2 .tag[data-gallery]:hover { transform: translateY(-1px) scale(1.04); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
   .portal-dp__text .lead {
     color: var(--text-secondary); font-size: 1.05rem; line-height: 1.78; margin-bottom: 18px;
   }
@@ -469,6 +471,106 @@
   .tech-card p { color: var(--text-secondary); font-size: 0.84rem; line-height: 1.6; }
 
   /* ============================================ */
+  /*  Screening Architecture (Horizontal Flow)     */
+  /* ============================================ */
+  .section-screening {
+    padding: clamp(36px, 6vh, 60px) 28px clamp(48px, 8vh, 80px);
+    min-height: 100dvh; display: flex; flex-direction: column; justify-content: flex-start;
+    position: relative; z-index: 1;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(56,189,248,0.04) 25%, rgba(56,189,248,0.06) 55%, rgba(56,189,248,0.03) 80%, rgba(0,137,123,0.03) 100%);
+  }
+  [data-theme="dark"] .section-screening {
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(56,189,248,0.08) 30%, rgba(56,189,248,0.06) 60%, rgba(0,137,123,0.05) 100%);
+  }
+
+  .arch-flow { display: flex; gap: 24px; align-items: stretch; justify-content: center; max-width: 1200px; margin: 0 auto; width: 100%; }
+  .arch-column { flex: 1; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .arch-column--wide { flex: 1.15; }
+
+  /* — Arrow between columns — */
+  .arch-arrow {
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 48px;
+    position: relative;
+  }
+  .arch-arrow::before {
+    content: ''; position: absolute; top: 50%; left: 4px; right: 4px;
+    height: 2px; background: var(--text-tertiary); opacity: 0.35;
+    transform: translateY(-50%);
+  }
+  .arch-arrow svg {
+    width: 22px; height: 22px; stroke: var(--text-tertiary); stroke-width: 2;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+    position: relative; z-index: 1; background: var(--bg); border-radius: 50%;
+    padding: 4px;
+  }
+  [data-theme="dark"] .arch-arrow svg { background: var(--bg); }
+
+  /* — Column label — */
+  .arch-col__label {
+    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.04em; text-align: center;
+    padding: 4px 12px; border-radius: 8px; margin-bottom: 6px;
+  }
+
+  /* — Cards — */
+  .arch-card {
+    background: rgba(255,255,255,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg); padding: 22px 18px; text-align: center;
+    transition: all var(--transition); flex: 1; display: flex; flex-direction: column; justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.65);
+  }
+  .arch-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.75); }
+  .arch-card strong { font-size: 0.92rem; font-weight: 700; display: block; margin-bottom: 4px; }
+  .arch-card small { font-size: 0.74rem; line-height: 1.45; }
+  .arch-card__icon { font-size: 1.5rem; margin-bottom: 6px; }
+  [data-theme="dark"] .arch-card { background: rgba(255,255,255,0.04); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+
+  /* Stage 1 - Teal */
+  .arch-col--s1 .arch-col__label { color: #00695c; background: rgba(0,137,123,0.08); }
+  .arch-col--s1 .arch-card { border: 1px solid rgba(0,137,123,0.18); }
+  .arch-col--s1 .arch-card strong { color: #00695c; }
+  [data-theme="dark"] .arch-col--s1 .arch-col__label { color: #4db6ac; background: rgba(0,137,123,0.12); }
+  [data-theme="dark"] .arch-col--s1 .arch-card { border-color: rgba(0,137,123,0.22); }
+  [data-theme="dark"] .arch-col--s1 .arch-card strong { color: #4db6ac; }
+
+  /* Stage 2 - Indigo/Blue */
+  .arch-col--s2 .arch-col__label { color: #0d47a1; background: rgba(13,71,161,0.08); }
+  .arch-col--s2 .arch-card { border: 1px solid rgba(13,71,161,0.18); }
+  .arch-col--s2 .arch-card strong { color: #0d47a1; }
+  [data-theme="dark"] .arch-col--s2 .arch-col__label { color: #64b5f6; background: rgba(13,71,161,0.12); }
+  [data-theme="dark"] .arch-col--s2 .arch-card { border-color: rgba(13,71,161,0.22); }
+  [data-theme="dark"] .arch-col--s2 .arch-card strong { color: #64b5f6; }
+
+  /* Stage 3 - Purple */
+  .arch-col--s3 .arch-col__label { color: #4a148c; background: rgba(74,20,140,0.08); }
+  .arch-col--s3 .arch-card { border: 1px solid rgba(74,20,140,0.18); }
+  .arch-col--s3 .arch-card strong { color: #4a148c; }
+  [data-theme="dark"] .arch-col--s3 .arch-col__label { color: #ce93d8; background: rgba(74,20,140,0.12); }
+  [data-theme="dark"] .arch-col--s3 .arch-card { border-color: rgba(74,20,140,0.22); }
+  [data-theme="dark"] .arch-col--s3 .arch-card strong { color: #ce93d8; }
+
+  /* Stage 4 - Orange/Amber */
+  .arch-col--s4 .arch-col__label { color: #e65100; background: rgba(230,81,0,0.08); }
+  .arch-col--s4 .arch-card { border: 1px solid rgba(230,81,0,0.18); }
+  .arch-col--s4 .arch-card strong { color: #e65100; }
+  [data-theme="dark"] .arch-col--s4 .arch-col__label { color: #ffb74d; background: rgba(230,81,0,0.12); }
+  [data-theme="dark"] .arch-col--s4 .arch-card { border-color: rgba(230,81,0,0.22); }
+  [data-theme="dark"] .arch-col--s4 .arch-card strong { color: #ffb74d; }
+
+  @media (max-width: 768px) {
+    .arch-flow { flex-direction: column; gap: 12px; }
+    .arch-arrow { width: 100%; height: 32px; }
+    .arch-arrow::before { display: none; }
+    .arch-arrow svg { transform: rotate(90deg); }
+  }
+  @media (max-height: 750px) {
+    .section-screening { padding: 10px 20px 8px; }
+    .arch-card { padding: 10px 10px; }
+    .arch-card strong { font-size: 0.74rem; }
+    .arch-card small { font-size: 0.62rem; }
+    .arch-col__label { font-size: 0.64rem; }
+  }
+
+  /* ============================================ */
   /*  Cases Grid                                  */
   /* ============================================ */
   .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -478,7 +580,7 @@
     border-radius: var(--radius-md); padding: 30px 28px;
     transition: all var(--transition);
     box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.65);
-    position: relative;
+    position: relative; cursor: pointer;
   }
   .case-card::after {
     content: ''; position: absolute; inset: 0; border-radius: var(--radius-md);
@@ -601,7 +703,58 @@
     margin:16px 0 8px;
   }
   .modal-sub { color:var(--text-secondary); font-size:.84rem; }
+  /* ============================================ */
   @media (max-width:500px) { .modal-card { padding:36px 24px; } }
+
+  /* ============================================ */
+  /*  Case Gallery Overlay                         */
+  /* ============================================ */
+  .case-gallery-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility .35s;
+  }
+  .case-gallery-overlay.open { opacity: 1; visibility: visible; }
+  .case-gallery-content {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    max-width: 70vw; max-height: 70vh; width: 100%;
+  }
+  .case-gallery-content img {
+    max-width: 70vw; max-height: 70vh; border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 1px rgba(0,0,0,0.1);
+    object-fit: contain; transition: opacity .3s ease;
+  }
+  .case-gallery-close {
+    position: absolute; top: 24px; right: 30px; z-index: 10001;
+    width: 44px; height: 44px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.12); color: #fff; cursor: pointer;
+    font-size: 1.5rem; display: flex; align-items: center; justify-content: center;
+    transition: all .2s; line-height: 1;
+  }
+  .case-gallery-close:hover { background: rgba(255,255,255,0.25); transform: scale(1.08); }
+  .case-gallery-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10001;
+    width: 48px; height: 48px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.12); color: #fff; cursor: pointer;
+    font-size: 1.8rem; display: flex; align-items: center; justify-content: center;
+    transition: all .2s; line-height: 1; backdrop-filter: blur(4px);
+  }
+  .case-gallery-nav:hover { background: rgba(255,255,255,0.25); transform: translateY(-50%) scale(1.1); }
+  .case-gallery-nav--prev { left: -60px; }
+  .case-gallery-nav--next { right: -60px; }
+  .case-gallery-nav svg { width: 22px; height: 22px; stroke: #fff; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .case-gallery-counter {
+    color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 600;
+    margin-top: 16px; letter-spacing: 0.05em;
+  }
+  @media (max-width: 768px) {
+    .case-gallery-content { max-width: 80vw; max-height: 70vh; }
+    .case-gallery-content img { max-width: 80vw; max-height: 70vh; }
+    .case-gallery-nav--prev { left: -40px; }
+    .case-gallery-nav--next { right: -40px; }
+    .case-gallery-nav { width: 40px; height: 40px; font-size: 1.4rem; }
+  }
 
   /* ============================================ */
   /*  Office laptop compact mode (height ≤ 900px)   */
@@ -670,6 +823,15 @@
     .tech-card h3 { font-size: 0.9rem; margin-bottom: 6px; }
     .tech-card p { font-size: 0.76rem; }
 
+    /* — Screening Flow (适度压缩) — */
+    .section-screening { padding: 18px 28px 12px; }
+    .arch-card { padding: 14px 16px; }
+    .arch-card strong { font-size: 0.8rem; }
+    .arch-card small { font-size: 0.68rem; }
+    .arch-col__label { font-size: 0.7rem; }
+    .arch-connector__line { height: 12px; }
+    .arch-connector__label { font-size: 0.66rem; }
+
     /* — CTA / Footer — */
     .cta { padding: 42px 28px; }
     .cta h2 { font-size: 1.6rem; }
@@ -711,6 +873,13 @@
     .case-card h3 { font-size: 0.8rem; }
     .case-card__stats { margin-top: 10px; padding-top: 8px; gap: 10px; }
     .case-card__stats strong { font-size: 0.85rem; }
+    .section-screening { padding: 14px 20px 10px; }
+    .arch-card { padding: 10px 12px; }
+    .arch-card strong { font-size: 0.7rem; }
+    .arch-card small { font-size: 0.62rem; }
+    .arch-col__label { font-size: 0.64rem; }
+    .arch-connector__line { height: 8px; }
+    .arch-connector__label { font-size: 0.6rem; }
   }
 
   /*  Responsive                                  */
@@ -723,6 +892,7 @@
     .portals-cards { gap: 16px; }
     .portal-highlights { gap: 24px; }
     .portal-highlights__item { flex: 1 1 40%; min-width: 120px; border-left: none; padding: 0 8px; }
+    .arch-flow { overflow-x: auto; }
   }
   @media (max-width: 768px) {
     .nav__links { display: none; }
@@ -748,6 +918,7 @@
     .footer__links { flex-wrap: wrap; justify-content: center; }
     .section-padded { padding: 0 20px; min-height: auto; }
     .portals-overview { padding: 40px 20px; }
+    .section-screening { padding: 40px 20px; }
   }
 </style>
 </head>
@@ -768,6 +939,7 @@
     </a>
     <ul class="nav__links" id="navLinks">
       <li><a href="#hero" onclick="closeMobileMenu()">首页</a></li>
+      <li><a href="#screening" onclick="closeMobileMenu()">筛查与纳管</a></li>
       <li><a href="#portals" onclick="closeMobileMenu()">产品门户</a></li>
       <li><a href="#technology" onclick="closeMobileMenu()">核心技术</a></li>
       <li><a href="#cases" onclick="closeMobileMenu()">实施案例</a></li>
@@ -810,10 +982,67 @@
     <a href="#cases" class="btn btn--ghost">实施案例</a>
   </div>
   <div class="hero__kpis">
-    <div><div class="hero__kpi-val">20+</div><div class="hero__kpi-label">覆盖医院</div></div>
-    <div><div class="hero__kpi-val">135,000+</div><div class="hero__kpi-label">管理患者</div></div>
-    <div><div class="hero__kpi-val">2,300+</div><div class="hero__kpi-label">注册医护</div></div>
+    <div><div class="hero__kpi-val">80+</div><div class="hero__kpi-label">覆盖医疗机构</div></div>
+    <div><div class="hero__kpi-val">30万+</div><div class="hero__kpi-label">管理患者</div></div>
+    <div><div class="hero__kpi-val">4,000+</div><div class="hero__kpi-label">注册医护</div></div>
     <div><div class="hero__kpi-val">99.9%</div><div class="hero__kpi-label">系统可用率</div></div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  Screening & Onboarding Architecture         -->
+<!-- ============================================ -->
+<section class="section-screening" id="screening">
+  <div class="section__inner">
+    <div class="section__hd" style="margin-bottom:clamp(20px,3vh,32px);">
+      <div class="section__label">筛查与纳管</div>
+      <h2 class="section__title">AI慢病筛查与纳管全流程</h2>
+      <p class="section__desc">从大数据AI智能筛查到患者建档纳管，实现慢病患者"筛-分-诊-管"闭环管理</p>
+    </div>
+
+    <div class="arch-flow">
+      <!-- Column 1: AI Screening (Teal) -->
+      <div class="arch-column arch-column--wide arch-col--s1">
+        <div class="arch-col__label">大数据AI筛查与模型验证</div>
+        <div class="arch-card"><div class="arch-card__icon">🎯</div><strong>大数据AI筛查</strong><small>智能分析海量数据，自动识别慢病高危人群</small></div>
+        <div class="arch-card"><div class="arch-card__icon">🔍</div><strong>模型验证</strong><small>与基础筛查优势互补，规则命中分发</small></div>
+        <div class="arch-card"><div class="arch-card__icon">📤</div><strong>自动分发</strong><small>规则分发与自动分发并行，精准推送</small></div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arch-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+
+      <!-- Column 2: Data Distribution (Indigo) -->
+      <div class="arch-column arch-col--s2">
+        <div class="arch-col__label">慢病患者数据分发</div>
+        <div class="arch-card"><div class="arch-card__icon">🏥</div><strong>就诊机构</strong><small>当天接诊 · 规则命中分发</small></div>
+        <div class="arch-card"><div class="arch-card__icon">🏘️</div><strong>基层机构</strong><small>常住地址 · 家医签约 · 属地管理</small></div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arch-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+
+      <!-- Column 3: Patient Processing (Purple) -->
+      <div class="arch-column arch-col--s3">
+        <div class="arch-col__label">患者处理</div>
+        <div class="arch-card"><div class="arch-card__icon">📝</div><strong>建档纳管</strong></div>
+        <div class="arch-card"><div class="arch-card__icon">📞</div><strong>召回复诊</strong></div>
+        <div class="arch-card"><div class="arch-card__icon">🏥</div><strong>安排住院</strong></div>
+        <div class="arch-card"><div class="arch-card__icon">❌</div><strong>无效作废</strong></div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arch-arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+
+      <!-- Column 4: Management (Orange) -->
+      <div class="arch-column arch-col--s4">
+        <div class="arch-col__label">慢病管理</div>
+        <div class="arch-card"><strong>初诊患者</strong><small>建档纳管</small></div>
+        <div class="arch-card"><strong>复诊患者</strong><small>常规管理</small></div>
+        <div class="arch-card"><strong>节点患者</strong><small>加强管理</small></div>
+        <div class="arch-card"><strong>重点患者</strong><small>住院治疗</small></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -897,9 +1126,9 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>医助端 <span class="tag" style="background:var(--gradient-primary);">诊前筛查</span></h2>
+        <h2>医助端 <span class="tag" style="background:var(--gradient-primary);" data-gallery='["screenshots/系统截图/患者筛查追踪.png","screenshots/系统截图/一体化门诊AI筛查提示.png"]'>诊前筛查</span></h2>
         <p class="lead">面向门诊预检与助理人员，提供诊前信息采集、慢病风险智能筛查、精准分诊与归档管理一站式服务。对接HIS系统自动汇集患者数据，结合AI风险评估模型，高效抓取高危人群，大幅降低医生筛查负担与漏管风险。</p>
-        <p class="detail">系统内置高血压、糖尿病、冠心病等6大慢病筛查模型，支持自定义筛查规则。患者就诊时自动匹配筛查条件，弹窗提示未上报高危人群，一键生成结构化患者档案，实现风险分层管理。</p>
+        <p class="detail">当患者挂号就诊时，系统自动匹配患者历史诊疗数据，根据诊断、检验、处方等多维信息触发慢病筛查条件。对于新发疑似患者，通过智能问卷采集补充信息后，AI模型实时计算风险评分并推荐分诊方向。筛查结果一键生成结构化慢病档案，按高危、确诊、低风险三级分层管理，并自动提醒医生对未上报高危患者进行追踪确认。</p>
       </div>
       <div class="fm-grid">
         <div class="fm-card">
@@ -952,9 +1181,9 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>医生端 <span class="tag" style="background:var(--gradient-cool);">诊后管理</span></h2>
-        <p class="lead">为临床医生提供诊中智能辅助，集成CDSS临床决策支持系统，基于知识图谱与医学大模型，实时提供鉴别诊断建议、治疗方案推荐、合理用药指导与并发症风险预警。让每一位临床医生都拥有AI专家团队的决策支持。</p>
-        <p class="detail">CDSS引擎在医生书写病历、开具处方时动态触发，自动匹配患者体征数据与医学知识库，提示可能的诊断方向与标准治疗路径。支持自定义方案模板，一键生成个性化健康管理计划。</p>
+        <h2>医生端 <span class="tag" style="background:var(--gradient-cool);" data-gallery='["screenshots/系统截图/患者全病程慢病档案画像.png","screenshots/系统截图/个性化生活方式干预.png"]'>诊后管理</span></h2>
+        <p class="lead">为临床医生提供诊中智能辅助与诊后全程管理，集成CDSS临床决策支持系统。基于权威医学知识图谱与医疗大模型，在医生书写病历、开具处方时动态触发，实时提供鉴别诊断建议、治疗方案推荐、合理用药指导与并发症风险预警。让每一位临床医生都拥有AI专家团队的决策支持。</p>
+        <p class="detail">CDSS引擎深度整合六大慢病知识图谱，涵盖疾病关系、药物相互作用、标准治疗路径等结构化医学知识。当医生录入患者症状与体征时，AI自动匹配可能的诊断方向并提供循证依据；开具处方时智能审查药物禁忌症与相互作用，按指南推荐标准化用药方案。结合患者风险分层与合并症情况，一键生成包含饮食、运动、用药在内的个性化健康管理计划。</p>
       </div>
       <div class="fm-grid">
         <div class="fm-card">
@@ -1007,9 +1236,9 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>管理端 <span class="tag" style="background:var(--gradient-mixed);">数据驾驶舱</span></h2>
+        <h2>管理端 <span class="tag" style="background:var(--gradient-mixed);" data-gallery='["screenshots/系统截图/区域慢病数据驾驶舱.png","screenshots/系统截图/慢病区域质量控制实施监测1.png"]'>数据驾驶舱</span></h2>
         <p class="lead">面向医院管理层与公卫管理部门，提供全域慢病数据驾驶舱、质控指标动态监测、多维度统计分析与自动报表。推动慢病管理从经验驱动全面转向数据驱动，实现精细化、可量化的管理决策。</p>
-        <p class="detail">平台内置6大慢病病种质控指标体系，自动计算血压控制率、血糖达标率等核心指标。支持按省/市/区/院多级钻取分析，灵活配置考核维度，一键生成并导出质控报告，满足各级卫健委绩效考核需求。</p>
+        <p class="detail">平台内置6大慢病病种完整质控指标体系，涵盖血压控制率、血糖达标率、规范管理率等核心考核指标，自动按日/周/月/季周期计算并刷新。支持按省、市、区、院多级自由钻取分析，灵活配置考核维度与阈值。数据驾驶舱以可视化大屏形式呈现辖区高危人群热力图、慢病患病人数趋势、治疗覆盖率变化、双向转诊执行率等30+核心图表。所有报表支持一键导出Excel/PDF，满足各级卫健委绩效考核与上报需求。</p>
       </div>
       <div class="fm-grid">
         <div class="fm-card">
@@ -1062,9 +1291,9 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>医生移动端 <span class="tag" style="background:linear-gradient(135deg,#c2185b,#f48fb1);">移动管理</span></h2>
+        <h2>医生移动端 <span class="tag" style="background:linear-gradient(135deg,#c2185b,#f48fb1);" data-gallery='["screenshots/系统截图/基层医生账上慢病助手.png"]'>移动管理</span></h2>
         <p class="lead">面向临床医生的移动慢病管理工具，支持医生随时随地查看患者慢病档案、处理待办任务、完成随访与健康干预。通过手机端实时掌握患者健康状况，打破院内空间限制，提升慢病管理效率与患者触达率。</p>
-        <p class="detail">系统自动归集筛查待建档、待随访、复诊预约、预警处理等多类待办任务，动态提示医生处理。支持查看患者全病程管理记录，在线回复患者咨询，制定个性化健康管理方案并一键推送至患者端。</p>
+        <p class="detail">系统自动归集来自门诊筛查、住院诊断、公卫上报等多渠道的待办任务，涵盖待建档、待随访、复诊预约、预警处理、健康干预、在线留言6大类型，按优先级排序并以红点徽标动态提醒。医生可通过手机端快速查看患者360度慢病档案——包括筛查记录、历次就诊病历、检查检验结果、健康监测趋势与异常预警历史，辅助制定个性化管理方案并一键推送至患者微信端。随访支持GPS定位拍照签字，确保真实性可核验。</p>
       </div>
       <div class="fm-grid">
         <div class="fm-card">
@@ -1117,9 +1346,9 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>患者端 <span class="tag" style="background:var(--gradient-warm);">自我管理</span></h2>
+        <h2>患者端 <span class="tag" style="background:var(--gradient-warm);" data-gallery='["screenshots/系统截图/慢病助手移动端.png"]'>自我管理</span></h2>
         <p class="lead">面向慢病患者及高危人群，通过移动端（微信服务号/小程序）提供健康自测、指标记录、用药提醒、健康教育、在线咨询等功能。帮助患者建立科学的自我管理习惯，提升治疗依从性与长期健康结局。</p>
-        <p class="detail">患者可随时随地记录血压、血糖等健康指标，系统自动生成趋势图并同步至签约医生。医生端推送个性化健康教育内容与用药打卡任务，支持图文在线问诊，足不出户即可获得专业指导。</p>
+        <p class="detail">患者通过微信服务号或互联网医院入口即可一键绑定，零门槛使用。日常可随时手录血压、血糖、体重等指标，也可通过蓝牙连接电子血压计、血糖仪实现数据自动上传，系统自动生成趋势曲线并对比正常参考范围，异常值即时预警同步推送至签约医生端。医生通过平台向患者精准推送个性化健康教育内容与用药打卡任务，患者完成阅读和打卡后自动记录依从数据。支持图文在线咨询签约医生，足不出户获得专业健康指导，家人账号可绑定协助老年患者代为管理。</p>
       </div>
       <div class="fm-grid">
         <div class="fm-card">
@@ -1218,33 +1447,33 @@
     <div class="section__hd" style="margin-bottom:36px;">
       <div class="section__label">实施案例</div>
       <h2 class="section__title">已在多家医院落地验证</h2>
-      <p class="section__desc">由省市级医院牵头部署的医联体项目，已覆盖70余家机构，管理患者超万人</p>
+      <p class="section__desc">由省市级医院牵头部署的医联体项目，已覆盖80余家机构，管理患者超30万人</p>
     </div>
     <div class="case-grid">
-      <div class="case-card">
+      <div class="case-card" data-gallery='["screenshots/嘉善截图1.png","screenshots/嘉善2.png","screenshots/嘉善3.png","screenshots/嘉善4.png","screenshots/嘉善5.png","screenshots/嘉善6.png","screenshots/嘉善7.png"]'>
         <div class="case-card__tag">浙江 · 省级标杆</div>
         <h3>嘉善慢病一体化门诊建设</h3>
         <p>市级医院牵头，覆盖1家三级医院与20余家基层机构。打通HIS/LIS/PACS等多套异构系统，建立统一数据交换标准，实现省、市、县三级慢病数据互联互通与实时共享。</p>
         <div class="case-card__stats">
-          <div><strong>13,502</strong>管理患者</div>
-          <div><strong>1,772</strong>高危人群</div>
-          <div><strong>2,340</strong>注册医护</div>
+          <div><strong>25,022</strong>管理患者</div>
+          <div><strong>3,685</strong>高危人群</div>
+          <div><strong>2,368</strong>注册医护</div>
         </div>
       </div>
-      <div class="case-card">
-        <div class="case-card__tag">绍兴柯桥 · 市域一体化</div>
-        <h3>绍兴柯桥慢病一体化管理平台</h3>
-        <p>市卫健委牵头建设，全市二级以上医院及基层医疗机构全面接入。实现六类慢病"筛-诊-治-管"全流程信息化闭环，达到省级规范化管理标准。</p>
+      <div class="case-card" data-gallery='["screenshots/岱山截图1.png","screenshots/岱山截图2.png","screenshots/岱山3.png","screenshots/岱山4.png","screenshots/岱山5.png"]'>
+        <div class="case-card__tag">岱山 · 市域一体化</div>
+        <h3>岱山慢病一体化管理平台</h3>
+        <p>岱山县人民医院牵头建设，全市二级以上医院及基层医疗机构全面接入。实现六类慢病"筛-诊-治-管"全流程信息化闭环，达到省级规范化管理标准。</p>
         <div class="case-card__stats">
           <div><strong>市级</strong>医联体</div>
           <div><strong>全链条</strong>覆盖</div>
           <div><strong>省标</strong>合规</div>
         </div>
       </div>
-      <div class="case-card">
+      <div class="case-card" data-gallery='["screenshots/内蒙古截图1.png","screenshots/内蒙古截图2.png","screenshots/柯桥1.png"]'>
         <div class="case-card__tag">多区域 · 集团化</div>
-        <h3>舟山 / 内蒙古 / 镇江丹徒 等</h3>
-        <p>已部署舟山岱山医院（3家基层）、内蒙古科右前旗人民医院（20家基层）、镇江丹徒区（13家基层）等多区域项目，实现跨区域慢病管理一体化协同。</p>
+        <h3>柯桥 / 内蒙古 / 镇江丹徒 等</h3>
+        <p>已部署柯桥区基层医疗机构（12家基层）、内蒙古科右前旗人民医院（20家基层）、镇江丹徒区（13家基层）等多区域项目，实现跨区域慢病管理一体化协同。</p>
         <div class="case-card__stats">
           <div><strong>7+</strong>项目落地</div>
           <div><strong>70+</strong>覆盖机构</div>
@@ -1275,6 +1504,7 @@
     </div>
     <ul class="footer__links">
       <li><a href="#hero">首页</a></li>
+      <li><a href="#screening">筛查与纳管</a></li>
       <li><a href="#portals">产品门户</a></li>
       <li><a href="#technology">核心技术</a></li>
       <li><a href="#cases">实施案例</a></li>
@@ -1804,7 +2034,96 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}
   document.addEventListener('DOMContentLoaded', setupThemeEffects);
   if (document.readyState !== 'loading') setupThemeEffects();
 
+  /* ===========================================
+     Case Gallery
+     =========================================== */
+  document.addEventListener('DOMContentLoaded', () => {
+  const galleryOverlay = document.getElementById('caseGallery');
+  const galleryImg = document.getElementById('galleryImg');
+  const galleryCounter = document.getElementById('galleryCounter');
+  const galleryPrev = document.getElementById('galleryPrev');
+  const galleryNext = document.getElementById('galleryNext');
+  const galleryClose = galleryOverlay.querySelector('.case-gallery-close');
+
+  let galleryImages = [];
+  let galleryIndex = 0;
+
+  function openGallery(images, startIndex) {
+    galleryImages = images;
+    galleryIndex = startIndex || 0;
+    renderGallery();
+    galleryOverlay.classList.add('open');
+  }
+
+  function closeGallery() {
+    galleryOverlay.classList.remove('open');
+    galleryImages = [];
+    galleryIndex = 0;
+    galleryImg.src = '';
+  }
+
+  function renderGallery() {
+    galleryImg.src = galleryImages[galleryIndex];
+    const total = galleryImages.length;
+    galleryCounter.textContent = total > 1 ? (galleryIndex + 1) + ' / ' + total : '';
+    galleryPrev.style.display = total > 1 ? '' : 'none';
+    galleryNext.style.display = total > 1 ? '' : 'none';
+  }
+
+  function galleryPrevImage() {
+    if (galleryImages.length === 0) return;
+    galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+    renderGallery();
+  }
+
+  function galleryNextImage() {
+    if (galleryImages.length === 0) return;
+    galleryIndex = (galleryIndex + 1) % galleryImages.length;
+    renderGallery();
+  }
+
+  // Event: click case-card or tag with data-gallery
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('.case-card, .tag[data-gallery]');
+    if (!el || !el.dataset.gallery) return;
+    let images;
+    try { images = JSON.parse(el.dataset.gallery); } catch(_) { return; }
+    if (!images || !images.length) return;
+    openGallery(images, 0);
+  });
+
+  // Gallery navigation
+  galleryClose.addEventListener('click', closeGallery);
+  galleryOverlay.addEventListener('click', (e) => {
+    if (e.target === galleryOverlay) closeGallery();
+  });
+  galleryPrev.addEventListener('click', (e) => { e.stopPropagation(); galleryPrevImage(); });
+  galleryNext.addEventListener('click', (e) => { e.stopPropagation(); galleryNextImage(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!galleryOverlay.classList.contains('open')) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowLeft') galleryPrevImage();
+    if (e.key === 'ArrowRight') galleryNextImage();
+  });
+  }); // END DOMContentLoaded
+
   </script>
+
+<!-- Case Gallery Overlay -->
+<div class="case-gallery-overlay" id="caseGallery">
+  <button class="case-gallery-close" title="关闭">&times;</button>
+  <div class="case-gallery-content">
+    <button class="case-gallery-nav case-gallery-nav--prev" id="galleryPrev" style="display:none">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <img src="" alt="项目截图" id="galleryImg">
+    <button class="case-gallery-nav case-gallery-nav--next" id="galleryNext" style="display:none">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+  <div class="case-gallery-counter" id="galleryCounter"></div>
+</div>
 
 </body>
 </html>
