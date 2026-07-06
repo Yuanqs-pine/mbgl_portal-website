@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创联网捷 · 慢病全病程管理新范式</title>
+<link rel="icon" type="image/png" href="qj_1024x1024.17f17116.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  /* ============================================ */
+  /*  Theme Variables                             */
+  /* ============================================ */
+  :root {
+    --bg: #ffffff;
+    --bg-elevated: #f8f9fb;
+    --bg-raised: #eff0f3;
+    --text: #0b1215;
+    --text-secondary: #5a6570;
+    --text-tertiary: #8f99a3;
+    --border: #e2e5ea;
+    --border-light: #eef0f3;
+    --accent: #00897b;
+    --accent-hover: #00695c;
+    --accent-subtle: rgba(0, 137, 123, 0.08);
+    --accent-glow: rgba(0, 137, 123, 0.12);
+    --gradient-primary: linear-gradient(135deg, #00695c 0%, #00897b 50%, #26a69a 100%);
+    --gradient-cool: linear-gradient(135deg, #00695c 0%, #0d47a1 100%);
+    --gradient-warm: linear-gradient(135deg, #e65100 0%, #c62828 100%);
+    --gradient-mixed: linear-gradient(135deg, #00695c 0%, #6a1b9a 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+    --shadow-3d: 0 1px 2px rgba(0,0,0,0.03), 0 4px 8px rgba(0,0,0,0.05), 0 12px 28px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.02) inset;
+    --shadow-3d-hover: 0 2px 4px rgba(0,0,0,0.04), 0 8px 16px rgba(0,0,0,0.08), 0 20px 44px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.03) inset;
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --nav-bg: rgba(255,255,255,0.82);
+    --nav-blur: saturate(180%) blur(20px);
+    --dot-color: rgba(0, 137, 123, 0.08);
+    --transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    /* Portal page accent colors */
+    --portal-teal: #e0f7fa;  --portal-teal-accent: #00695c;
+    --portal-blue: #e3f2fd;  --portal-blue-accent: #0d47a1;
+    --portal-purple: #ede7f6; --portal-purple-accent: #4a148c;
+    --portal-orange: #fff3e0; --portal-orange-accent: #d84315;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0a0f14;
+    --bg-elevated: #0f151c;
+    --bg-raised: #181f28;
+    --text: #f0f2f5;
+    --text-secondary: #8899a8;
+    --text-tertiary: #5a6a78;
+    --border: #1e2832;
+    --border-light: #151c24;
+    --accent: #26a69a;
+    --accent-hover: #4db6ac;
+    --accent-subtle: rgba(38, 166, 154, 0.06);
+    --accent-glow: rgba(38, 166, 154, 0.1);
+    --gradient-primary: linear-gradient(135deg, #26a69a 0%, #4db6ac 50%, #80cbc4 100%);
+    --gradient-cool: linear-gradient(135deg, #26a69a 0%, #42a5f5 100%);
+    --gradient-warm: linear-gradient(135deg, #ff7043 0%, #ef5350 100%);
+    --gradient-mixed: linear-gradient(135deg, #26a69a 0%, #ab47bc 100%);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.35);
+    --shadow-3d: 0 1px 2px rgba(0,0,0,0.14), 0 4px 8px rgba(0,0,0,0.16), 0 12px 28px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.03) inset;
+    --shadow-3d-hover: 0 2px 4px rgba(0,0,0,0.18), 0 8px 16px rgba(0,0,0,0.22), 0 20px 44px rgba(0,0,0,0.26), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    --nav-bg: rgba(10, 15, 20, 0.82);
+    --nav-blur: saturate(180%) blur(20px);
+    --dot-color: rgba(38, 166, 154, 0.06);
+    /* Portal page accent colors - dark */
+    --portal-teal: #0d2b2a;  --portal-teal-accent: #80cbc4;
+    --portal-blue: #0d1f33;  --portal-blue-accent: #64b5f6;
+    --portal-purple: #1a1028; --portal-purple-accent: #b39ddb;
+    --portal-orange: #2b1a0a; --portal-orange-accent: #ff8a65;
+  }
+
+  /* ============================================ */
+  /*  Reset                                       */
+  /* ============================================ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 60px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  /* ============================================ */
+  /*  Background Effects                          */
+  /* ============================================ */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.55;
+  }
+  .bg-grid::after {
+    content: '';
+    position: absolute; inset: -50%;
+    background-image: radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+    background-size: 44px 44px;
+    animation: gridDrift 30s linear infinite;
+  }
+  @keyframes gridDrift { 0% { transform: translate(0, 0); } 100% { transform: translate(44px, 44px); } }
+
+  .bg-orb { position: fixed; border-radius: 50%; z-index: 0; pointer-events: none; filter: blur(140px); opacity: 0.12; }
+  .bg-orb--1 { width: 500px; height: 500px; top: -15%; right: -10%; background: #00897b; animation: orb1 18s ease-in-out infinite; }
+  .bg-orb--2 { width: 350px; height: 350px; bottom: -8%; left: -5%; background: #1565c0; animation: orb2 20s ease-in-out infinite; }
+  .bg-orb--3 { width: 400px; height: 400px; top: 60%; left: 55%; background: #6a1b9a; animation: orb3 22s ease-in-out infinite; }
+  @keyframes orb1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(50px,-30px) scale(1.06); } 66% { transform: translate(-20px,40px) scale(0.94); } }
+  @keyframes orb2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-40px,30px) scale(1.05); } 66% { transform: translate(30px,-20px) scale(0.96); } }
+  @keyframes orb3 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,40px) scale(1.04); } 66% { transform: translate(-40px,-20px) scale(0.97); } }
+
+  /* ============================================ */
+  /*  Navigation                                  */
+  /* ============================================ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--nav-bg); backdrop-filter: var(--nav-blur); -webkit-backdrop-filter: var(--nav-blur);
+    border-bottom: 1px solid var(--border);
+    transition: all var(--transition);
+  }
+  .nav__inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .nav__logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
+  .nav__logo-img { width: 34px; height: 34px; border-radius: 8px; object-fit: cover; }
+  .nav__links { display: flex; gap: 2px; list-style: none; }
+  .nav__links a {
+    text-decoration: none; color: var(--text-secondary); padding: 7px 15px;
+    border-radius: 7px; font-size: 0.875rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .nav__links a:hover { color: var(--accent); background: var(--accent-subtle); }
+  .nav__right { display: flex; align-items: center; gap: 8px; }
+
+  /* Theme Toggle - borderless */
+  .nav__theme-btn {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: transparent; border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    padding: 0; transition: all 0.25s; color: var(--text-secondary);
+  }
+  .nav__theme-btn:hover { color: var(--accent); background: var(--accent-subtle); }
+  .nav__theme-btn svg { width: 20px; height: 20px; stroke-width: 1.8; stroke: currentColor; transition: all 0.35s; }
+  /* Dark mode → show sun; Light mode → show moon */
+  :root .theme-icon-sun { display: none; }
+  :root .theme-icon-moon { display: block; }
+  [data-theme="dark"] .theme-icon-sun { display: block; }
+  [data-theme="dark"] .theme-icon-moon { display: none; }
+
+  .nav__hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--text); }
+  .nav__hamburger span { display: block; width: 20px; height: 2px; background: currentColor; margin: 4px 0; transition: 0.3s; border-radius: 2px; }
+
+  /* ============================================ */
+  /*  Hero                                        */
+  /* ============================================ */
+  .hero {
+    position: relative; z-index: 1;     min-height: 100dvh; overflow:hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: clamp(80px, 12vh, 120px) 28px clamp(60px, 10vh, 100px);
+  }
+  .hero__tag, .hero__title, .hero__desc, .hero__actions, .hero__kpis {
+    position:relative; z-index:2;
+  }
+  .hero__tag {
+    display: inline-block; padding: 5px 18px; border-radius: 50px;
+    background: var(--accent-subtle); color: var(--accent);
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.03em;
+    margin-bottom: 32px; border: 1px solid var(--accent-subtle);
+    animation: reveal 0.7s ease forwards;
+  }
+  .hero__title {
+    font-size: clamp(2.8rem, 6vw, 4.6rem); font-weight: 850;
+    line-height: 1.1; letter-spacing: -0.03em;
+    max-width: 760px; margin-bottom: 28px;
+    animation: reveal 0.7s ease 0.1s forwards; opacity: 0;
+  }
+  .hero__title em {
+    font-style: normal;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero__desc {
+    font-size: 1.08rem; color: var(--text-secondary);
+    max-width: 580px; margin: 0 auto 44px; line-height: 1.72;
+    animation: reveal 0.7s ease 0.2s forwards; opacity: 0;
+  }
+  .hero__btns {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: reveal 0.7s ease 0.3s forwards; opacity: 0;
+  }
+  .btn {
+    padding: 13px 30px; border-radius: 12px; font-size: 0.92rem; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: none; transition: all 0.28s;
+    display: inline-flex; align-items: center; gap: 8px; letter-spacing: -0.01em;
+  }
+  .btn--primary {
+    background: var(--gradient-primary); color: #fff;
+    box-shadow: 0 4px 24px var(--accent-glow);
+  }
+  .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--accent-glow); }
+  .btn--ghost {
+    background: var(--bg-elevated); color: var(--text); border: 1px solid var(--border);
+  }
+  .btn--ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+  .hero__kpis {
+    display: flex; gap: clamp(28px, 6vw, 56px); justify-content: center; margin-top: clamp(40px, 8vh, 80px);
+    animation: reveal 0.7s ease 0.4s forwards; opacity: 0;
+  }
+  .hero__kpi-val { font-size: 2.3rem; font-weight: 850; background: var(--gradient-cool); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero__kpi-label { font-size: 0.85rem; color: var(--text-tertiary); font-weight: 500; margin-top: 2px; }
+  @keyframes reveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ============================================ */
+  /*  Section Utilities                           */
+  /* ============================================ */
+  .section { position: relative; z-index: 1; }
+  .section--alt { background: var(--bg-elevated); }
+  .section__inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+  .section__hd { text-align: center; margin-bottom: 60px; }
+  .section__label {
+    display: inline-block; padding: 4px 16px; border-radius: 50px;
+    background: var(--accent-subtle); color: var(--accent);
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 18px;
+  }
+  .section__title { font-size: clamp(1.7rem, 3.2vw, 2.3rem); font-weight: 800; letter-spacing: -0.025em; margin-bottom: 14px; }
+  .section__desc { color: var(--text-secondary); max-width: 560px; margin: 0 auto; font-size: 1rem; }
+
+  /* ============================================ */
+  /*  Portal Overview - Card Grid (2x2)           */
+  /* ============================================ */
+  .portals-overview {
+    min-height: 100dvh; display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(30px, 6vh, 60px) 28px;
+  }
+  .portals-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    max-width: 980px; margin: 48px auto 0; width: 100%;
+  }
+  .portals-cards__item {
+    background:rgba(255,255,255,0.55); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);
+    border-radius: var(--radius-lg);
+    cursor: pointer; text-decoration: none; color: var(--text);
+    transition: all var(--transition); position: relative; overflow: hidden;
+    display: flex; flex-direction: row; align-items: center; gap: 28px;
+    padding: 38px 32px; box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  .portals-cards__item::before {
+    content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 5px;
+    transition: width 0.35s ease;
+  }
+  .portals-cards__item:hover {
+    transform: translateY(-3px) translateX(2px);
+    box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  [data-theme="dark"] .portals-cards__item {
+    background:rgba(255,255,255,0.04); backdrop-filter:blur(16px);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  [data-theme="dark"] .portals-cards__item:hover {
+    box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .portals-cards__item:hover::before { width: 8px; }
+  /* card glow on hover */
+  .portals-cards__item::after {
+    content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
+    opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+  }
+  .portals-cards__item--assist::after { box-shadow: 0 0 30px rgba(0,105,92,0.1); }
+  .portals-cards__item--doctor::after { box-shadow: 0 0 30px rgba(13,71,161,0.1); }
+  .portals-cards__item--admin::after { box-shadow: 0 0 30px rgba(74,20,140,0.1); }
+  .portals-cards__item--patient::after { box-shadow: 0 0 30px rgba(216,67,21,0.1); }
+  .portals-cards__item:hover::after { opacity: 1; }
+  /* Portal card accent bars — keep colored left border */
+  .portals-cards__item--assist { border-color: rgba(0,105,92,0.2); }
+  .portals-cards__item--assist::before { background: linear-gradient(180deg, #00695c, #26a69a); }
+  .portals-cards__item--doctor { border-color: rgba(13,71,161,0.2); }
+  .portals-cards__item--doctor::before { background: linear-gradient(180deg, #0d47a1, #42a5f5); }
+  .portals-cards__item--admin { border-color: rgba(74,20,140,0.2); }
+  .portals-cards__item--admin::before { background: linear-gradient(180deg, #4a148c, #b39ddb); }
+  .portals-cards__item--patient { border-color: rgba(216,67,21,0.2); }
+  .portals-cards__item--patient::before { background: linear-gradient(180deg, #d84315, #ff8a65); }
+
+  .portals-cards__left {
+    display: flex; flex-direction: column; align-items: center; flex-shrink: 0; min-width: 72px;
+  }
+  .portals-cards__icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .portals-cards__icon--assist { background: rgba(0,105,92,0.12); }
+  .portals-cards__icon--doctor { background: rgba(13,71,161,0.12); }
+  .portals-cards__icon--admin { background: rgba(74,20,140,0.12); }
+  .portals-cards__icon--patient { background: rgba(216,67,21,0.12); }
+  .portals-cards__name { font-size: 1.15rem; font-weight: 750; letter-spacing: -0.01em; text-align: center; }
+  .portals-cards__right { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .portals-cards__desc { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; }
+  .portals-cards__arrow {
+    width:34px; height:34px; border-radius:50%; margin-top:12px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(128,128,128,0.08);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
+    transition: all .3s var(--transition); align-self: flex-end; flex-shrink:0;
+  }
+  .portals-cards__arrow svg {
+    width:15px; height:15px; stroke:var(--text-secondary); stroke-width:2;
+    fill:none; stroke-linecap:round; stroke-linejoin:round;
+    transition: transform .3s var(--transition), stroke .3s var(--transition);
+  }
+  .portals-cards__item:hover .portals-cards__arrow {
+    transform: translateX(4px) scale(1.08);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+    background:rgba(128,128,128,0.12);
+  }
+  .portals-cards__item:hover .portals-cards__arrow svg { stroke:var(--text); transform:translateX(2px); }
+  [data-theme="dark"] .portals-cards__arrow { background:rgba(255,255,255,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05); }
+  [data-theme="dark"] .portals-cards__item:hover .portals-cards__arrow { background:rgba(255,255,255,0.1); box-shadow: 0 3px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); }
+
+  /* ============================================ */
+  /*  Portal Detail Pages (full-width sections)   */
+  /* ============================================ */
+  .portal-detail-page {
+    min-height: 100dvh; padding: clamp(50px, 8vh, 80px) 0 clamp(50px, 8vh, 80px); position: relative; z-index: 1;
+    transition: background var(--transition);
+  }
+  .portal-detail-page--assist { background: linear-gradient(180deg, rgba(0,105,92,0.06) 0%, rgba(0,105,92,0.08) 15%, rgba(0,105,92,0.03) 35%, var(--bg) 60%, var(--bg) 100%); }
+  .portal-detail-page--doctor { background: linear-gradient(180deg, rgba(13,71,161,0.08) 0%, rgba(13,71,161,0.03) 25%, var(--bg) 55%, var(--bg) 100%); }
+  .portal-detail-page--admin  { background: linear-gradient(180deg, rgba(74,20,140,0.08) 0%, rgba(74,20,140,0.03) 25%, var(--bg) 55%, var(--bg) 100%); }
+  .portal-detail-page--patient{ background: linear-gradient(180deg, rgba(216,67,21,0.08) 0%, rgba(216,67,21,0.03) 25%, var(--bg) 55%, var(--bg) 100%); }
+
+  [data-theme="dark"] .portal-detail-page--assist { background: linear-gradient(180deg, rgba(0,105,92,0.12) 0%, rgba(0,105,92,0.04) 30%, var(--bg) 60%, var(--bg) 100%); }
+  [data-theme="dark"] .portal-detail-page--doctor { background: linear-gradient(180deg, rgba(13,71,161,0.12) 0%, rgba(13,71,161,0.04) 30%, var(--bg) 60%, var(--bg) 100%); }
+  [data-theme="dark"] .portal-detail-page--admin  { background: linear-gradient(180deg, rgba(74,20,140,0.12) 0%, rgba(74,20,140,0.04) 30%, var(--bg) 60%, var(--bg) 100%); }
+  [data-theme="dark"] .portal-detail-page--patient{ background: linear-gradient(180deg, rgba(216,67,21,0.12) 0%, rgba(216,67,21,0.04) 30%, var(--bg) 60%, var(--bg) 100%); }
+
+  .portal-detail-page .section__inner { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+  .portal-dp__hero {
+    display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: start;
+    padding: 20px 0 clamp(28px, 4vh, 48px);
+  }
+  .portal-dp__text h2 {
+    font-size: 2.2rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 22px;
+  }
+  .portal-dp__text h2 .tag {
+    display: inline-block; padding: 2px 12px; border-radius: 5px;
+    font-size: 0.8rem; vertical-align: middle; margin-left: 12px; color: #fff; font-weight: 600;
+  }
+  .portal-dp__text .lead {
+    color: var(--text-secondary); font-size: 1.05rem; line-height: 1.78; margin-bottom: 18px;
+  }
+  .portal-dp__text .detail {
+    color: var(--text-tertiary); font-size: 0.92rem; line-height: 1.72;
+  }
+
+  .fm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .fm-card {
+    background:rgba(255,255,255,0.5); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--border);
+    border-radius: var(--radius-md); padding: 28px 26px;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.65);
+    position: relative;
+  }
+  .fm-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: var(--radius-md);
+    opacity: 0; transition: opacity 0.4s ease;
+    box-shadow: 0 0 0 1px var(--accent-subtle), 0 0 30px var(--accent-glow);
+    pointer-events: none;
+  }
+  .fm-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.75);
+    border-color: var(--accent-subtle);
+  }
+  [data-theme="dark"] .fm-card {
+    background:rgba(255,255,255,0.03); backdrop-filter:blur(12px);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  [data-theme="dark"] .fm-card:hover {
+    box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .fm-card:hover::after { opacity: 1; }
+  .fm-card__icon {
+    width: 44px; height: 44px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 18px;
+  }
+  .fm-card__title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .fm-card__desc { color: var(--text-secondary); font-size: 0.87rem; line-height: 1.6; }
+
+  .portal-highlights {
+    display: flex; gap: 24px; flex-wrap: wrap; margin-top: 48px;
+    padding: 24px 0; border-top: 1px solid var(--border);
+  }
+  .portal-highlights__item {
+    flex: 1; min-width: 150px; padding: 0 12px; text-align: center;
+    border-left: 1px solid var(--border);
+  }
+  .portal-highlights__item:first-child { border-left: none; padding-left: 0; }
+  .portal-highlights__item:last-child { padding-right: 0; }
+  .portal-highlights__item .num { font-size: 1.8rem; font-weight: 850; color: var(--accent); letter-spacing: -0.02em; }
+  .portal-highlights__item .lbl { font-size: 0.82rem; color: var(--text-tertiary); margin-top: 4px; }
+
+  /* ============================================ */
+  /*  Technology Grid                             */
+  /* ============================================ */
+  .section-padded { padding: clamp(30px, 6vh, 60px) 28px clamp(24px, 4vh, 40px); min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
+  .section-tech { padding: clamp(40px, 8vh, 80px) 28px clamp(24px, 4vh, 40px); min-height: 100dvh; display: flex; flex-direction: column; justify-content: flex-start; }
+  .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tech-card {
+    text-align: center; padding: 44px 28px;
+    background:rgba(255,255,255,0.5); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--border); border-radius: var(--radius-lg);
+    transition: all var(--transition);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.65);
+    position: relative;
+  }
+  .tech-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
+    opacity: 0; transition: opacity 0.4s ease;
+    box-shadow: 0 0 0 1px var(--accent-subtle), 0 0 40px var(--accent-glow);
+    pointer-events: none;
+  }
+  .tech-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.75); }
+  [data-theme="dark"] .tech-card {
+    background:rgba(255,255,255,0.03); backdrop-filter:blur(12px);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  [data-theme="dark"] .tech-card:hover {
+    box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .tech-card:hover::after { opacity: 1; }
+  .tech-card__icon {
+    width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 22px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+    background: var(--accent-subtle);
+  }
+  .tech-card h3 { font-size: 1.05rem; font-weight: 750; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .tech-card p { color: var(--text-secondary); font-size: 0.84rem; line-height: 1.6; }
+
+  /* ============================================ */
+  /*  Cases Grid                                  */
+  /* ============================================ */
+  .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .case-card {
+    background:rgba(255,255,255,0.5); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--border);
+    border-radius: var(--radius-md); padding: 30px 28px;
+    transition: all var(--transition);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.65);
+    position: relative;
+  }
+  .case-card::after {
+    content: ''; position: absolute; inset: 0; border-radius: var(--radius-md);
+    opacity: 0; transition: opacity 0.4s ease;
+    box-shadow: 0 0 0 1px var(--accent-subtle), 0 0 30px var(--accent-glow);
+    pointer-events: none;
+  }
+  .case-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.75); }
+  [data-theme="dark"] .case-card {
+    background:rgba(255,255,255,0.03); backdrop-filter:blur(12px);
+    box-shadow: var(--shadow-3d), inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+  [data-theme="dark"] .case-card:hover {
+    box-shadow: var(--shadow-3d-hover), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .case-card:hover::after { opacity: 1; }
+  .case-card__tag { color: var(--accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.02em; margin-bottom: 12px; }
+  .case-card h3 { font-size: 1.1rem; font-weight: 750; margin-bottom: 12px; letter-spacing: -0.01em; }
+  .case-card p { color: var(--text-secondary); font-size: 0.86rem; line-height: 1.6; }
+  .case-card__stats { display: flex; gap: 20px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .case-card__stats div { font-size: 0.78rem; color: var(--text-tertiary); }
+  .case-card__stats strong { display: block; font-size: 1.15rem; color: var(--text); font-weight: 800; }
+
+  /* ============================================ */
+  /*  CTA                                         */
+  /* ============================================ */
+  .cta {
+    background: var(--gradient-primary); border-radius: var(--radius-xl);
+    padding: 52px 48px; text-align: center; color: #fff; margin-top: 36px;
+  }
+  .cta h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.02em; }
+  .cta p { opacity: 0.88; max-width: 460px; margin: 0 auto 28px; font-size: 1rem; }
+  .cta .btn--ghost { background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.25); color: #fff; font-weight: 600; }
+  .cta .btn--ghost:hover { background: rgba(255,255,255,0.24); transform: translateY(-2px); }
+
+  /* ============================================ */
+  /*  Footer                                      */
+  /* ============================================ */
+  .footer { padding: 56px 28px; border-top: 1px solid var(--border); position: relative; z-index: 1; }
+  .footer__inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer__brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .footer__brand-img { width: 30px; height: 30px; border-radius: 7px; object-fit: cover; }
+  .footer__links { display: flex; gap: 28px; list-style: none; }
+  .footer__links a { color: var(--text-tertiary); text-decoration: none; font-size: 0.86rem; transition: color 0.2s; }
+  .footer__links a:hover { color: var(--accent); }
+  .footer__copy { color: var(--text-tertiary); font-size: 0.82rem; margin-top: 6px; }
+
+  /* ============================================ */
+  /*  ThreadsCanvas — 织线背景                         */
+  /* ============================================ */
+  .threads-canvas {
+    position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0;
+    display:block; transition:opacity .5s ease;
+  }
+
+  /* ============================================ */
+  /*  ShapeGrid — 图形网格背景                         */
+  /* ============================================ */
+  .shapegrid-canvas {
+    position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0;
+    display:block; border:none; transition:opacity .5s ease;
+  }
+
+  /* ============================================ */
+  /*  PixelCard — 像素卡片                              */
+  /* ============================================ */
+  .pixel-card { position:relative; overflow:hidden; isolation:isolate; contain: layout style paint; }
+  .pixel-card .pixel-canvas {
+    position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block;
+    opacity:0; transition:opacity 0.35s ease;
+    image-rendering: auto;
+  }
+  .pixel-card:hover .pixel-canvas { opacity:1; }
+  .pixel-card > *:not(.pixel-canvas) { position:relative; z-index:2; }
+
+  /* ============================================ */
+  /*  Modal — 3D Popup                            */
+  /* ============================================ */
+  .modal-overlay {
+    position:fixed; inset:0; z-index:99999;
+    background:rgba(0,0,0,0.5); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; visibility:hidden; transition: opacity .35s var(--transition), visibility .35s;
+  }
+  .modal-overlay--open { opacity:1; visibility:visible; }
+  .modal-card {
+    background:var(--bg); border:1px solid var(--border);
+    border-radius:var(--radius-xl); padding:48px 52px; text-align:center;
+    max-width:420px; width:90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.7);
+    transform: perspective(800px) rotateX(3deg) scale(0.92);
+    transition: transform .4s var(--transition);
+    position:relative;
+  }
+  .modal-overlay--open .modal-card {
+    transform: perspective(800px) rotateX(0deg) scale(1);
+  }
+  [data-theme="dark"] .modal-card {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 1px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .modal-close {
+    position:absolute; top:16px; right:18px;
+    width:32px; height:32px; border-radius:50%;
+    border:none; background:var(--bg-raised); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-secondary); font-size:1.1rem; transition: all .2s;
+  }
+  .modal-close:hover { background:var(--border); color:var(--text); }
+  .modal-icon {
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg, var(--portal-teal-accent, #00695c), #26a69a);
+    margin:0 auto 20px; display:flex; align-items:center; justify-content:center;
+    font-size:1.8rem; box-shadow:0 8px 24px rgba(0,105,92,0.25);
+  }
+  .modal-title { font-size:1.15rem; font-weight:700; margin-bottom:8px; letter-spacing:-.01em; }
+  .modal-phone {
+    font-size:1.8rem; font-weight:750; letter-spacing:-.02em;
+    background:linear-gradient(135deg, var(--portal-teal-accent, #00695c), #26a69a);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin:16px 0 8px;
+  }
+  .modal-sub { color:var(--text-secondary); font-size:.84rem; }
+  @media (max-width:500px) { .modal-card { padding:36px 24px; } }
+
+  /* ============================================ */
+  /*  Office laptop compact mode (height ≤ 900px)   */
+  /*  覆盖 1366×768 / 1440×900 等常用办公本          */
+  /* ============================================ */
+  @media (max-height: 900px) {
+    /* — Hero: 更大文字, 更宽松排版 — */
+    .hero { padding: 56px 32px 40px; }
+    .hero__tag { margin-bottom: 20px; padding: 5px 18px; font-size: 0.82rem; }
+    .hero__title { margin-bottom: 22px; font-size: clamp(2.8rem, 5.5vw, 4rem); }
+    .hero__desc { margin-bottom: 28px; font-size: 1.06rem; max-width: 560px; }
+    .hero__kpis { margin-top: 40px; gap: clamp(30px, 5.5vw, 48px); }
+    .hero__kpi-val { font-size: 2rem; }
+    .hero__kpi-label { font-size: 0.84rem; }
+    .btn { padding: 12px 28px; font-size: 0.92rem; }
+
+    /* — Portal Overview — */
+    .portals-overview { padding: 28px 28px 36px; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; }
+    .portals-cards { gap: 22px; margin-top: 30px; }
+    .portals-cards__item { padding: 28px 24px; gap: 18px; }
+    .portals-cards__icon { width: 48px; height: 48px; font-size: 1.4rem; margin-bottom: 10px; }
+    .portals-cards__name { font-size: 1.05rem; }
+    .portals-cards__desc { font-size: 0.84rem; }
+    .section__hd { margin-bottom: 40px; }
+    .section__label { margin-bottom: 12px; font-size: 0.74rem; padding: 4px 14px; }
+    .section__title { font-size: clamp(1.6rem, 3vw, 2rem); margin-bottom: 10px; }
+    .section__desc { font-size: 0.92rem; }
+
+    /* — Portal Detail Pages: 大文字, 卡片紧凑 — */
+    .portal-detail-page {
+      padding: 0; min-height: 100dvh;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .portal-detail-page .section__inner { padding: 16px 28px 8px; }
+    .portal-dp__hero { padding: 14px 0 28px; gap: 38px; }
+    .portal-dp__text h2 { font-size: 2rem; margin-bottom: 16px; }
+    .portal-dp__text h2 .tag { font-size: 0.78rem; padding: 3px 12px; margin-left: 10px; }
+    .portal-dp__text .lead { font-size: 1rem; line-height: 1.68; margin-bottom: 14px; }
+    .portal-dp__text .detail { font-size: 0.9rem; line-height: 1.6; }
+    .fm-grid { gap: 14px; }
+    .fm-card { padding: 20px 20px; }
+    .fm-card__icon { width: 38px; height: 38px; font-size: 1.2rem; margin-bottom: 12px; border-radius: 9px; }
+    .fm-card__title { font-size: 0.9rem; margin-bottom: 6px; }
+    .fm-card__desc { font-size: 0.8rem; line-height: 1.5; }
+    .portal-highlights { margin-top: 28px; padding: 14px 0; gap: 14px; }
+    .portal-highlights__item .num { font-size: 1.4rem; }
+    .portal-highlights__item .lbl { font-size: 0.78rem; }
+
+    /* — Cases — */
+    .case-grid { gap: 16px; }
+    .case-card { padding: 22px 20px; }
+    .case-card__tag { font-size: 0.74rem; margin-bottom: 10px; }
+    .case-card h3 { font-size: 0.95rem; margin-bottom: 10px; }
+    .case-card p { font-size: 0.8rem; }
+    .case-card__stats { margin-top: 14px; padding-top: 12px; gap: 14px; }
+    .case-card__stats div { font-size: 0.72rem; }
+    .case-card__stats strong { font-size: 1rem; }
+
+    /* — Technology Grid (适度压缩, 不溢出768px视口) — */
+    .section-tech { padding: 28px 28px 16px; min-height: 100dvh; }
+    .section-padded { padding: 24px 28px 16px; min-height: 100dvh; }
+    .tech-grid { gap: 14px; }
+    .tech-card { padding: 26px 20px; }
+    .tech-card__icon { width: 42px; height: 42px; font-size: 1.2rem; margin-bottom: 14px; border-radius: 11px; }
+    .tech-card h3 { font-size: 0.9rem; margin-bottom: 6px; }
+    .tech-card p { font-size: 0.76rem; }
+
+    /* — CTA / Footer — */
+    .cta { padding: 42px 28px; }
+    .cta h2 { font-size: 1.6rem; }
+    .footer { padding: 28px 28px; }
+  }
+
+  /* ============================================ */
+  /*  Extra-short compact mode (height < 700px)    */
+  /* ============================================ */
+  @media (max-height: 750px) {
+    .hero { padding: 48px 20px 28px; }
+    .hero__tag { margin-bottom: 10px; padding: 2px 10px; font-size: 0.66rem; }
+    .hero__title { margin-bottom: 8px; font-size: clamp(1.7rem, 4vw, 2.6rem); }
+    .hero__desc { margin-bottom: 14px; font-size: 0.8rem; }
+    .hero__kpis { margin-top: 20px; gap: 18px; }
+    .hero__kpi-val { font-size: 1.25rem; }
+    .portal-detail-page { padding: 20px 0 20px; }
+    .portal-dp__hero { padding: 6px 0 16px; gap: 18px; }
+    .portal-dp__text h2 { font-size: 1.3rem; }
+    .portal-dp__text .lead { font-size: 0.76rem; }
+    .portal-dp__text .detail { font-size: 0.72rem; }
+    .fm-grid { gap: 10px; }
+    .fm-card { padding: 14px 14px; }
+    .fm-card__icon { width: 28px; height: 28px; font-size: 1rem; margin-bottom: 8px; }
+    .fm-card__title { font-size: 0.78rem; }
+    .fm-card__desc { font-size: 0.7rem; }
+    .portal-highlights { margin-top: 16px; padding: 10px 0; gap: 10px; }
+    .portal-highlights__item .num { font-size: 1.1rem; }
+    .section-padded { padding: 14px 20px 12px; min-height: 100dvh; }
+    .section-tech { padding: 18px 20px 12px; min-height: 100dvh; }
+    .section__hd { margin-bottom: 20px; }
+    .btn { padding: 8px 18px; font-size: 0.78rem; }
+    .portals-overview { padding: 14px 20px; }
+    .portals-cards { gap: 12px; margin-top: 14px; }
+    .portals-cards__item { padding: 18px 16px; gap: 12px; }
+    .tech-card { padding: 20px 14px; }
+    .case-card { padding: 16px 14px; }
+    .case-card h3 { font-size: 0.8rem; }
+    .case-card__stats { margin-top: 10px; padding-top: 8px; gap: 10px; }
+    .case-card__stats strong { font-size: 0.85rem; }
+  }
+
+  /*  Responsive                                  */
+  /* ============================================ */
+  @media (max-width: 1024px) {
+    .portal-dp__hero { grid-template-columns: 1fr; gap: 40px; }
+    .fm-grid { grid-template-columns: repeat(2, 1fr); }
+    .tech-grid { grid-template-columns: repeat(2, 1fr); }
+    .case-grid { grid-template-columns: repeat(2, 1fr); }
+    .portals-cards { gap: 16px; }
+    .portal-highlights { gap: 24px; }
+    .portal-highlights__item { flex: 1 1 40%; min-width: 120px; border-left: none; padding: 0 8px; }
+  }
+  @media (max-width: 768px) {
+    .nav__links { display: none; }
+    .nav__hamburger { display: block; }
+    .nav__links--open {
+      display: flex; flex-direction: column; position: absolute;
+      top: 60px; left: 0; right: 0; background: var(--nav-bg);
+      backdrop-filter: var(--nav-blur); padding: 14px; gap: 2px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero { padding: 100px 20px 70px; }
+    .hero__kpis { gap: 28px; flex-wrap: wrap; }
+    .hero__kpi-val { font-size: 1.8rem; }
+    .portals-cards { grid-template-columns: 1fr; gap: 16px; max-width: 460px; }
+    .portals-cards__item { padding: 28px 24px; gap: 20px; }
+    .portal-detail-page { padding: 60px 0 60px; }
+    .portal-dp__hero { padding: 16px 0 32px; }
+    .fm-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .cta { padding: 48px 24px; }
+    .footer__inner { flex-direction: column; gap: 20px; text-align: center; }
+    .footer__links { flex-wrap: wrap; justify-content: center; }
+    .section-padded { padding: 0 20px; min-height: auto; }
+    .portals-overview { padding: 40px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background Effects -->
+<div class="bg-grid"></div>
+<div class="bg-orb bg-orb--1"></div>
+<div class="bg-orb bg-orb--2"></div>
+<div class="bg-orb bg-orb--3"></div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#hero" class="nav__logo">
+      <img class="nav__logo-img" src="qj_1024x1024.17f17116.png" alt="创联网捷">
+      创联网捷
+    </a>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#hero" onclick="closeMobileMenu()">首页</a></li>
+      <li><a href="#portals" onclick="closeMobileMenu()">产品门户</a></li>
+      <li><a href="#technology" onclick="closeMobileMenu()">核心技术</a></li>
+      <li><a href="#cases" onclick="closeMobileMenu()">实施案例</a></li>
+      <li><a href="#contact" onclick="closeMobileMenu()">联系我们</a></li>
+    </ul>
+    <div class="nav__right">
+      <button class="nav__theme-btn" id="themeToggle" aria-label="切换主题">
+        <!-- Sun icon (visible in dark mode) -->
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (visible in light mode) -->
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="nav__hamburger" id="hamburger" aria-label="菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================ -->
+<!--  Hero Section                                -->
+<!-- ============================================ -->
+<section class="hero" id="hero">
+  <canvas class="threads-canvas" id="threadsCanvas"></canvas>
+  <div class="hero__tag">AI · 医疗信息化</div>
+  <h1 class="hero__title">慢病全病程管理<em>新范式</em></h1>
+  <p class="hero__desc">
+    融合人工智能、知识图谱与CDSS临床决策支持，构建覆盖筛查、诊断、治疗、随访的慢病全周期信息化平台。
+  </p>
+  <div class="hero__btns">
+    <a href="#portals" class="btn btn--primary">了解产品 &nbsp;→</a>
+    <a href="#cases" class="btn btn--ghost">实施案例</a>
+  </div>
+  <div class="hero__kpis">
+    <div><div class="hero__kpi-val">20+</div><div class="hero__kpi-label">覆盖医院</div></div>
+    <div><div class="hero__kpi-val">135,000+</div><div class="hero__kpi-label">管理患者</div></div>
+    <div><div class="hero__kpi-val">2,300+</div><div class="hero__kpi-label">注册医护</div></div>
+    <div><div class="hero__kpi-val">99.9%</div><div class="hero__kpi-label">系统可用率</div></div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  Portal Overview - Card Grid                 -->
+<!-- ============================================ -->
+<section class="section" id="portals" style="background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 10%, rgba(0,137,123,0.03) 35%, rgba(0,105,92,0.05) 65%, rgba(0,105,92,0.07) 90%, rgba(0,105,92,0.06) 100%);">
+  <div style="position:relative; z-index:1;">
+  <div class="portals-overview">
+    <div class="section__hd" style="margin-bottom:56px;">
+      <div class="section__label">产品门户</div>
+      <h2 class="section__title">四大平台 · 覆盖慢病管理全场景</h2>
+      <p class="section__desc">面向不同业务角色打造专属工作台，实现慢病筛诊治管全链路信息化闭环</p>
+    </div>
+
+    <div class="portals-cards">
+      <!-- 医助端 -->
+      <a href="#portal-assist" class="portals-cards__item portals-cards__item--assist">
+        <div class="portals-cards__left">
+          <div class="portals-cards__icon portals-cards__icon--assist">🩺</div>
+          <div class="portals-cards__name">医助端</div>
+        </div>
+        <div class="portals-cards__right">
+          <div class="portals-cards__desc">诊前信息采集、慢病风险智能筛查与精准分诊，AI模型自动识别六类高危人群，一键生成结构化患者档案</div>
+          <div class="portals-cards__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+      <!-- 医生端 -->
+      <a href="#portal-doctor" class="portals-cards__item portals-cards__item--doctor">
+        <div class="portals-cards__left">
+          <div class="portals-cards__icon portals-cards__icon--doctor">👨‍⚕️</div>
+          <div class="portals-cards__name">医生端</div>
+        </div>
+        <div class="portals-cards__right">
+          <div class="portals-cards__desc">集成CDSS临床决策支持，知识图谱与AI大模型驱动实时诊断建议、治疗方案推荐与合理用药指导</div>
+          <div class="portals-cards__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+      <!-- 管理端 -->
+      <a href="#portal-admin" class="portals-cards__item portals-cards__item--admin">
+        <div class="portals-cards__left">
+          <div class="portals-cards__icon portals-cards__icon--admin">📊</div>
+          <div class="portals-cards__name">管理端</div>
+        </div>
+        <div class="portals-cards__right">
+          <div class="portals-cards__desc">全域数据驾驶舱、质控指标动态监测与多维度统计分析，支持省/市/区多级钻取与一键导出报告</div>
+          <div class="portals-cards__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+      <!-- 患者端 -->
+      <a href="#portal-patient" class="portals-cards__item portals-cards__item--patient">
+        <div class="portals-cards__left">
+          <div class="portals-cards__icon portals-cards__icon--patient">🧑</div>
+          <div class="portals-cards__name">患者端</div>
+        </div>
+        <div class="portals-cards__right">
+          <div class="portals-cards__desc">移动端健康自测、指标记录与用药提醒，图文在线问诊，帮助患者建立科学自我管理习惯</div>
+          <div class="portals-cards__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  医助平台 Detail Page                        -->
+<!-- ============================================ -->
+<section class="portal-detail-page portal-detail-page--assist" id="portal-assist">
+  <div class="section__inner">
+    <div class="portal-dp__hero">
+      <div class="portal-dp__text">
+        <h2>医助端 <span class="tag" style="background:var(--gradient-primary);">诊前筛查</span></h2>
+        <p class="lead">面向门诊预检与助理人员，提供诊前信息采集、慢病风险智能筛查、精准分诊与归档管理一站式服务。对接HIS系统自动汇集患者数据，结合AI风险评估模型，高效抓取高危人群，大幅降低医生筛查负担与漏管风险。</p>
+        <p class="detail">系统内置高血压、糖尿病、冠心病等6大慢病筛查模型，支持自定义筛查规则。患者就诊时自动匹配筛查条件，弹窗提示未上报高危人群，一键生成结构化患者档案，实现风险分层管理。</p>
+      </div>
+      <div class="fm-grid">
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(0,105,92,0.1);">📋</div>
+          <div class="fm-card__title">智能信息采集</div>
+          <div class="fm-card__desc">自动对接HIS获取患者基本信息、既往病史与检验数据，支持语音录入，减少90%手工填写</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">🔍</div>
+          <div class="fm-card__title">多病种风险筛查</div>
+          <div class="fm-card__desc">基于AI模型的6大慢病自动风险评估，生成筛查报告辅助分诊，精准识别高危人群</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(13,148,136,0.1);">🗂️</div>
+          <div class="fm-card__title">智能预检分诊</div>
+          <div class="fm-card__desc">根据筛查结果智能推荐分诊科室与优先级，减少患者候诊时间，优化门诊资源配置</div>
+        </div>
+      </div>
+    </div>
+    <div class="fm-grid" style="margin-top:20px;">
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(21,101,192,0.1);">📝</div>
+        <div class="fm-card__title">动态问卷管理</div>
+        <div class="fm-card__desc">按病种自动推送定制化问诊问卷，支持历史数据复填与既往检查一键导入</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">🔔</div>
+        <div class="fm-card__title">漏报智能提醒</div>
+        <div class="fm-card__desc">自动识别未上报高危患者并弹窗提示，一键抓取快速生成上报信息，杜绝漏管</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(106,27,154,0.1);">📊</div>
+        <div class="fm-card__title">筛查结果归档</div>
+        <div class="fm-card__desc">筛查结果一键生成结构化档案，按风险分级分类管理，历史记录可追溯</div>
+      </div>
+    </div>
+    <div class="portal-highlights">
+      <div class="portal-highlights__item"><div class="num">6</div><div class="lbl">覆盖慢病病种</div></div>
+      <div class="portal-highlights__item"><div class="num">< 30s</div><div class="lbl">单次筛查耗时</div></div>
+      <div class="portal-highlights__item"><div class="num">90%+</div><div class="lbl">高危识别准确率</div></div>
+      <div class="portal-highlights__item"><div class="num">100%</div><div class="lbl">数据自动归档</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  医生平台 Detail Page                        -->
+<!-- ============================================ -->
+<section class="portal-detail-page portal-detail-page--doctor" id="portal-doctor">
+  <div class="section__inner">
+    <div class="portal-dp__hero">
+      <div class="portal-dp__text">
+        <h2>医生端 <span class="tag" style="background:var(--gradient-cool);">诊后管理</span></h2>
+        <p class="lead">为临床医生提供诊中智能辅助，集成CDSS临床决策支持系统，基于知识图谱与医学大模型，实时提供鉴别诊断建议、治疗方案推荐、合理用药指导与并发症风险预警。让每一位临床医生都拥有AI专家团队的决策支持。</p>
+        <p class="detail">CDSS引擎在医生书写病历、开具处方时动态触发，自动匹配患者体征数据与医学知识库，提示可能的诊断方向与标准治疗路径。支持自定义方案模板，一键生成个性化健康管理计划。</p>
+      </div>
+      <div class="fm-grid">
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(13,71,161,0.1);">🧠</div>
+          <div class="fm-card__title">CDSS 智能诊断</div>
+          <div class="fm-card__desc">基于知识图谱与AI大模型的实时鉴别诊断建议，降低误诊漏诊率，提升诊疗质量</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">💊</div>
+          <div class="fm-card__title">合理用药指导</div>
+          <div class="fm-card__desc">处方开具时自动提示常用药物、禁忌症与药物相互作用，保障用药安全合规</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(33,150,243,0.1);">💡</div>
+          <div class="fm-card__title">智能鉴别诊断</div>
+          <div class="fm-card__desc">输入患者症状后AI自动列出鉴别诊断方向，匹配医学知识库提供循证依据</div>
+        </div>
+      </div>
+    </div>
+    <div class="fm-grid" style="margin-top:20px;">
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">📈</div>
+        <div class="fm-card__title">关键指标趋势</div>
+        <div class="fm-card__desc">可视化展示血压、血糖、血脂等指标历史趋势曲线，异常值自动标注并触发预警</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(106,27,154,0.1);">🎯</div>
+        <div class="fm-card__title">个性化管理方案</div>
+        <div class="fm-card__desc">结合患者风险分层与合并症情况，自动生成综合饮食、运动、用药的干预计划</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(13,148,136,0.1);">📑</div>
+        <div class="fm-card__title">综合健康报告</div>
+        <div class="fm-card__desc">自动生成患者健康评估报告，涵盖风险评估、并发症预警、管理效果评价</div>
+      </div>
+    </div>
+    <div class="portal-highlights">
+      <div class="portal-highlights__item"><div class="num">实时</div><div class="lbl">CDSS诊断响应</div></div>
+      <div class="portal-highlights__item"><div class="num">90+</div><div class="lbl">标准治疗路径</div></div>
+      <div class="portal-highlights__item"><div class="num">6类</div><div class="lbl">并发症预警模型</div></div>
+      <div class="portal-highlights__item"><div class="num">一键</div><div class="lbl">个性化方案生成</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  管理平台 Detail Page                        -->
+<!-- ============================================ -->
+<section class="portal-detail-page portal-detail-page--admin" id="portal-admin">
+  <div class="section__inner">
+    <div class="portal-dp__hero">
+      <div class="portal-dp__text">
+        <h2>管理端 <span class="tag" style="background:var(--gradient-mixed);">数据驾驶舱</span></h2>
+        <p class="lead">面向医院管理层与公卫管理部门，提供全域慢病数据驾驶舱、质控指标动态监测、多维度统计分析与自动报表。推动慢病管理从经验驱动全面转向数据驱动，实现精细化、可量化的管理决策。</p>
+        <p class="detail">平台内置6大慢病病种质控指标体系，自动计算血压控制率、血糖达标率等核心指标。支持按省/市/区/院多级钻取分析，灵活配置考核维度，一键生成并导出质控报告，满足各级卫健委绩效考核需求。</p>
+      </div>
+      <div class="fm-grid">
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(74,20,140,0.1);">🗺️</div>
+          <div class="fm-card__title">全域数据驾驶舱</div>
+          <div class="fm-card__desc">动态展示辖区高危人群分布、患者画像、并发症发生率、治疗覆盖率等核心指标</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">📊</div>
+          <div class="fm-card__title">质控效能分析</div>
+          <div class="fm-card__desc">自动生成血压控制率、血糖达标率等核心质控报表，支持多期、多维度对比</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(156,39,176,0.1);">🔐</div>
+          <div class="fm-card__title">权限精细管控</div>
+          <div class="fm-card__desc">支持院-科-组多层级角色权限配置，数据安全隔离，满足集团化管理合规要求</div>
+        </div>
+      </div>
+    </div>
+    <div class="fm-grid" style="margin-top:20px;">
+      <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(21,101,192,0.1);">🧑</div>
+          <div class="fm-card__title">组织架构管理</div>
+        <div class="fm-card__desc">支持院-科-组多层组织架构配置，精细化角色与权限体系，满足集团化医院管理需要</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">🔄</div>
+        <div class="fm-card__title">双向转诊追踪</div>
+        <div class="fm-card__desc">上下级医疗机构间转诊全流程追踪与统计，自动计算转诊执行率与响应时效</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(13,148,136,0.1);">📋</div>
+        <div class="fm-card__title">质控报告体系</div>
+        <div class="fm-card__desc">6大慢病完整质控指标体系，自动计算一键导出，全面满足卫健委绩效考核要求</div>
+      </div>
+    </div>
+    <div class="portal-highlights">
+      <div class="portal-highlights__item"><div class="num">毫秒级</div><div class="lbl">实时数据聚合</div></div>
+      <div class="portal-highlights__item"><div class="num">省/市/区</div><div class="lbl">多级钻取分析</div></div>
+      <div class="portal-highlights__item"><div class="num">30+</div><div class="lbl">可视化图表</div></div>
+      <div class="portal-highlights__item"><div class="num">一键</div><div class="lbl">质控报告导出</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  患者平台 Detail Page                        -->
+<!-- ============================================ -->
+<section class="portal-detail-page portal-detail-page--patient" id="portal-patient">
+  <div class="section__inner">
+    <div class="portal-dp__hero">
+      <div class="portal-dp__text">
+        <h2>患者端 <span class="tag" style="background:var(--gradient-warm);">自我管理</span></h2>
+        <p class="lead">面向慢病患者及高危人群，通过移动端（微信服务号/小程序）提供健康自测、指标记录、用药提醒、健康教育、在线咨询等功能。帮助患者建立科学的自我管理习惯，提升治疗依从性与长期健康结局。</p>
+        <p class="detail">患者可随时随地记录血压、血糖等健康指标，系统自动生成趋势图并同步至签约医生。医生端推送个性化健康教育内容与用药打卡任务，支持图文在线问诊，足不出户即可获得专业指导。</p>
+      </div>
+      <div class="fm-grid">
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(216,67,21,0.1);">📱</div>
+          <div class="fm-card__title">移动健康管理</div>
+          <div class="fm-card__desc">微信服务号+小程序入口，随时记录血压、血糖等指标，自动生成趋势曲线</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(198,40,40,0.1);">🔔</div>
+          <div class="fm-card__title">智能用药打卡</div>
+          <div class="fm-card__desc">自动推送用药提醒，支持打卡追溯，未完成项醒目提示，强化患者遵医行为</div>
+        </div>
+        <div class="fm-card">
+          <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">🏠</div>
+          <div class="fm-card__title">居家健康监测</div>
+          <div class="fm-card__desc">蓝牙对接血压计、血糖仪等设备，数据自动上传，异常值即时预警通知医生</div>
+        </div>
+      </div>
+    </div>
+    <div class="fm-grid" style="margin-top:20px;">
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">📖</div>
+        <div class="fm-card__title">健康教育阅读</div>
+        <div class="fm-card__desc">医生精准推送个性化健康知识，支持PDF文档阅读，帮助患者建立疾病认知</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(21,101,192,0.1);">💬</div>
+        <div class="fm-card__title">在线图文问诊</div>
+        <div class="fm-card__desc">支持图文在线咨询签约医生，实时沟通解决健康疑惑，降低不必要的线下就诊</div>
+      </div>
+      <div class="fm-card">
+        <div class="fm-card__icon" style="background:rgba(106,27,154,0.1);">👨‍👩‍👧</div>
+        <div class="fm-card__title">家人绑定管理</div>
+        <div class="fm-card__desc">支持绑定家人账号，帮助老年患者进行健康数据代录、查看与管理</div>
+      </div>
+    </div>
+    <div class="portal-highlights">
+      <div class="portal-highlights__item"><div class="num">微信/互联网医院</div><div class="lbl">入口零门槛</div></div>
+      <div class="portal-highlights__item"><div class="num">24h</div><div class="lbl">在线咨询服务</div></div>
+      <div class="portal-highlights__item"><div class="num">8类</div><div class="lbl">健康知识专题</div></div>
+      <div class="portal-highlights__item"><div class="num">千人千面</div><div class="lbl">个性化推送</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  Technology Section                          -->
+<!-- ============================================ -->
+<section class="section section--alt section-tech" id="technology">
+  <div class="section__inner">
+    <div class="section__hd" style="margin-bottom:40px;">
+      <div class="section__label">核心技术</div>
+      <h2 class="section__title">六大核心技术，构建智能决策闭环</h2>
+      <p class="section__desc">深度融合前沿AI技术与权威医学知识体系，为精准慢病管理提供坚实技术底座</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-card__icon">🧬</div>
+        <h3>医学知识图谱</h3>
+        <p>覆盖六大慢病的权威医学知识库，结构化的疾病关系与治疗路径，为AI决策提供知识支撑</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card__icon">🤖</div>
+        <h3>大模型 + NLP</h3>
+        <p>医疗预训练大模型驱动病历智能解析、鉴别诊断与治疗方案推荐，结果可靠可解释</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card__icon">📡</div>
+        <h3>大数据平台</h3>
+        <p>Hadoop分布式架构支撑海量医疗数据实时处理与智能分析，突破传统数据库性能瓶颈</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card__icon">⚙️</div>
+        <h3>微服务架构</h3>
+        <p>Spring Cloud + Nacos云原生微服务体系，保障系统高可用、弹性伸缩与快速迭代部署</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card__icon">🔄</div>
+        <h3>互联互通引擎</h3>
+        <p>打通HIS、LIS、PACS等多源异构医疗系统，实现数据标准化汇聚与跨机构协同共享</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card__icon">🛡️</div>
+        <h3>数据安全体系</h3>
+        <p>全链路数据加密传输、隐私计算与多级权限管控，全面满足等保三级安全合规要求</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  Cases Section                               -->
+<!-- ============================================ -->
+<section class="section section--alt section-padded" id="cases" style="padding-top:40px;">
+  <div class="section__inner">
+    <div class="section__hd" style="margin-bottom:36px;">
+      <div class="section__label">实施案例</div>
+      <h2 class="section__title">已在多家医院落地验证</h2>
+      <p class="section__desc">由省市级医院牵头部署的医联体项目，已覆盖70余家机构，管理患者超万人</p>
+    </div>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-card__tag">浙江 · 省级标杆</div>
+        <h3>嘉善慢病一体化门诊建设</h3>
+        <p>市级医院牵头，覆盖1家三级医院与20余家基层机构。打通HIS/LIS/PACS等多套异构系统，建立统一数据交换标准，实现省、市、县三级慢病数据互联互通与实时共享。</p>
+        <div class="case-card__stats">
+          <div><strong>13,502</strong>管理患者</div>
+          <div><strong>1,772</strong>高危人群</div>
+          <div><strong>2,340</strong>注册医护</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__tag">绍兴柯桥 · 市域一体化</div>
+        <h3>绍兴柯桥慢病一体化管理平台</h3>
+        <p>市卫健委牵头建设，全市二级以上医院及基层医疗机构全面接入。实现六类慢病"筛-诊-治-管"全流程信息化闭环，达到省级规范化管理标准。</p>
+        <div class="case-card__stats">
+          <div><strong>市级</strong>医联体</div>
+          <div><strong>全链条</strong>覆盖</div>
+          <div><strong>省标</strong>合规</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-card__tag">多区域 · 集团化</div>
+        <h3>舟山 / 内蒙古 / 桂平 等</h3>
+        <p>已部署舟山岱山医院（3家基层）、内蒙古科右前旗人民医院（20家基层）、桂平市人民医院（9家基层）等多区域项目，实现跨区域慢病管理一体化协同。</p>
+        <div class="case-card__stats">
+          <div><strong>7+</strong>项目落地</div>
+          <div><strong>70+</strong>覆盖机构</div>
+          <div><strong>100%</strong>互联互通</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta" id="contact">
+      <h2>开启慢病管理智能化升级</h2>
+      <p>联系我们，获取专属解决方案演示与产品试用</p>
+      <button class="btn btn--ghost" onclick="openModal()">联系商务团队 &nbsp;→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!--  Footer                                      -->
+<!-- ============================================ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <div class="footer__brand">
+        <img class="footer__brand-img" src="qj_1024x1024.17f17116.png" alt="创联网捷">
+        浙江创联网捷科技有限公司
+      </div>
+      <div class="footer__copy">© 2025 创联网捷. All rights reserved.</div>
+    </div>
+    <ul class="footer__links">
+      <li><a href="#hero">首页</a></li>
+      <li><a href="#portals">产品门户</a></li>
+      <li><a href="#technology">核心技术</a></li>
+      <li><a href="#cases">实施案例</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-icon">📞</div>
+    <div class="modal-title">商务咨询热线</div>
+    <div class="modal-phone">0571-8622987</div>
+    <div class="modal-sub">工作日 9:00 – 18:00 · 获取专属解决方案演示</div>
+  </div>
+</div>
+
+<script>
+  /* ===========================================
+     Theme Toggle
+     =========================================== */
+  const html = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    html.setAttribute('data-theme', 'dark');
+  }
+  themeToggle.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next === 'dark' ? 'dark' : 'light');
+  });
+
+  /* ===========================================
+     Mobile Menu
+     =========================================== */
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('nav__links--open'));
+  function closeMobileMenu() { navLinks.classList.remove('nav__links--open'); }
+
+  /* ===========================================
+     Scroll Animations (IntersectionObserver)
+     =========================================== */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.tech-card, .case-card, .fm-card, .portals-cards__item').forEach((el, i) => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(28px)';
+    el.style.transition = 'all 0.6s cubic-bezier(0.22,1,0.36,1)';
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
+    io.observe(el);
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('.tech-card, .case-card, .fm-card, .portals-cards__item').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight) {
+        el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+      }
+    });
+  }, 300);
+
+  /* ===========================================
+     Nav Shadow on Scroll
+     =========================================== */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 8 ? '0 1px 4px rgba(0,0,0,0.07)' : 'none';
+  });
+
+  /* ===========================================
+     Modal
+     =========================================== */
+  const modal = document.getElementById('contactModal');
+  function openModal() {
+    modal.classList.add('modal-overlay--open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.remove('modal-overlay--open');
+    document.body.style.overflow = '';
+  }
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('modal-overlay--open')) closeModal();
+  });
+
+  /* ===========================================
+     PixelCard — 黑夜模式像素卡片
+     =========================================== */
+  const pixelStates = new WeakMap();
+
+  class Pixel {
+    constructor(canvas, ctx, x, y, color, speed, delay) {
+      this.ctx=ctx; this.x=x; this.y=y; this.color=color; this.speed=speed*0.001;
+      this.size=0; this.sizeStep=Math.random()*0.4; this.maxSize=1.5+Math.random()*1.5;
+      this.delay=delay; this.counter=0; this.counterStep=Math.random()*4+(canvas.width+canvas.height)*0.01;
+      this.isIdle=false; this.isReverse=false; this.isShimmer=false;
+    }
+    draw(){this.ctx.fillStyle=this.color;this.ctx.fillRect(this.x-this.size/2,this.y-this.size/2,this.size,this.size);}
+    appear(){
+      this.isIdle=false;if(this.counter<=this.delay){this.counter+=this.counterStep;return;}
+      if(this.size>=this.maxSize)this.isShimmer=true;
+      this.isShimmer?this.shimmer():(this.size+=this.sizeStep);this.draw();
+    }
+    disappear(){
+      this.isShimmer=false;this.counter=0;if(this.size<=0){this.isIdle=true;return;}
+      this.size=Math.max(0,this.size-0.6);if(this.size<=0){this.isIdle=true;return;}
+      this.draw();
+    }
+    shimmer(){
+      if(this.size>=this.maxSize)this.isReverse=true;else if(this.size<=0.5)this.isReverse=false;
+      this.size+=this.isReverse?-this.speed:this.speed;
+    }
+  }
+
+  function initPixelCard(card) {
+    card.classList.add('pixel-card');
+    const canvas = document.createElement('canvas');
+    canvas.className = 'pixel-canvas';
+    card.insertBefore(canvas, card.firstChild);
+
+    const ctx = canvas.getContext('2d');
+    const colors = ['#4db2ff','#7dd3fc','#0ea5e9','#38bdf8','#818cf8'];
+    const gap = 6; let pixels=[], animId=null;
+    const state = { pixels, animId, canvas, ctx, needsRebuild: false };
+
+    function buildPixels() {
+      const w = card.offsetWidth, h = card.offsetHeight;
+      if (w <= 0 || h <= 0) return;
+      const dpr = Math.min(window.devicePixelRatio||1,2);
+      canvas.width = Math.round(w*dpr); canvas.height = Math.round(h*dpr);
+      canvas.style.width=w+'px'; canvas.style.height=h+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const pxs = [];
+      for(let x=0; x<w; x+=gap) for(let y=0; y<h; y+=gap) {
+        const c = colors[Math.floor(Math.random()*colors.length)];
+        const dx=x-w/2, dy=y-h/2, dist=Math.sqrt(dx*dx+dy*dy);
+        pxs.push(new Pixel(canvas,ctx,x,y,c,25+Math.random()*15,dist));
+      }
+      state.pixels = pxs;
+      state.needsRebuild = false;
+    }
+
+    function doAnimate(fnName) {
+      const px = state.pixels;
+      if (!px || px.length === 0) { cancelAnimationFrame(state.animId); state.animId=null; return; }
+      state.animId = requestAnimationFrame(() => doAnimate(fnName));
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      let allIdle=true;
+      for(let i=0;i<px.length;i++){px[i][fnName]();if(!px[i].isIdle)allIdle=false;}
+      if(allIdle) {
+        cancelAnimationFrame(state.animId); state.animId=null;
+        if (fnName === 'disappear') ctx.clearRect(0,0,canvas.width,canvas.height);
+      }
+    }
+
+    function handleEnter() {
+      if (state.animId) cancelAnimationFrame(state.animId);
+      if (state.needsRebuild) buildPixels();
+      else if (state.pixels.length === 0) buildPixels();
+      state.animId = requestAnimationFrame(() => doAnimate('appear'));
+      canvas.style.opacity='1';
+    }
+    function handleLeave() {
+      if (state.animId) cancelAnimationFrame(state.animId);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      canvas.style.opacity='0';
+      // Let the disappear animation finish silently in background, don't show it
+      if(state.pixels.length) {
+        state.animId = requestAnimationFrame(() => doAnimate('disappear'));
+      }
+    }
+
+    // ResizeObserver: mark for rebuild on size change (zoom etc.)
+    const ro = new ResizeObserver(() => {
+      state.needsRebuild = true;
+    });
+    ro.observe(card);
+
+    card.addEventListener('mouseenter', handleEnter);
+    card.addEventListener('mouseleave', handleLeave);
+    pixelStates.set(card, state);
+    return state;
+  }
+
+  /* ===========================================
+     Threads — 黑夜模式 Hero WebGL 织线背景
+     =========================================== */
+  let threadsCtx=null, threadsAnim=null;
+
+  const threadsVS = 'attribute vec2 position;attribute vec2 uv;varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,0.,1.);}';
+  const threadsFS = `
+precision highp float;
+uniform float iTime; uniform vec3 iResolution; uniform vec3 uColor; uniform float uAmplitude; uniform float uDistance; uniform vec2 uMouse;
+#define PI 3.1415926538
+const int u_line_count=40; const float u_line_width=7.0; const float u_line_blur=10.0;
+
+float Perlin2D(vec2 P){
+  vec2 Pi=floor(P); vec4 Pf_Pfmin1=P.xyxy-vec4(Pi, Pi+1.0);
+  vec4 Pt=vec4(Pi.xy, Pi.xy+1.0); Pt=Pt-floor(Pt*(1.0/71.0))*71.0; Pt+=vec2(26.0,161.0).xyxy; Pt*=Pt; Pt=Pt.xzxz*Pt.yyww;
+  vec4 hash_x=fract(Pt*(1.0/951.135664)); vec4 hash_y=fract(Pt*(1.0/642.949883));
+  vec4 grad_x=hash_x-0.49999; vec4 grad_y=hash_y-0.49999;
+  vec4 grad_results=inversesqrt(grad_x*grad_x+grad_y*grad_y)*(grad_x*Pf_Pfmin1.xzxz+grad_y*Pf_Pfmin1.yyww);
+  grad_results*=1.4142135623730950;
+  vec2 blend=Pf_Pfmin1.xy*Pf_Pfmin1.xy*Pf_Pfmin1.xy*(Pf_Pfmin1.xy*(Pf_Pfmin1.xy*6.0-15.0)+10.0);
+  vec4 blend2=vec4(blend,vec2(1.0-blend));
+  return dot(grad_results,blend2.zxzx*blend2.wwyy);
+}
+
+float pixel(float count,vec2 res){return 1.0/max(res.x,res.y)*count;}
+
+float lineFn(vec2 st,float width,float perc,float offset,vec2 mouse,float time,float amplitude,float distance){
+  float split_offset=perc*0.4; float split_point=0.1+split_offset;
+  float amplitude_normal=smoothstep(split_point,0.7,st.x);
+  float finalAmp=amplitude_normal*0.5*amplitude*(1.0+(mouse.y-0.5)*0.2);
+  float t=time/10.0+(mouse.x-0.5)*1.0;
+  float blur=smoothstep(split_point,split_point+0.05,st.x)*perc;
+  float xnoise=mix(Perlin2D(vec2(t,st.x+perc)*2.5),Perlin2D(vec2(t,st.x+t)*3.5)/1.5,st.x*0.3);
+  float y=0.5+(perc-0.5)*distance+xnoise/2.0*finalAmp;
+  float ls=smoothstep(y+(width/2.0)+u_line_blur*pixel(1.0,iResolution.xy)*blur,y,st.y);
+  float le=smoothstep(y,y-(width/2.0)-u_line_blur*pixel(1.0,iResolution.xy)*blur,st.y);
+  return clamp((ls-le)*(1.0-smoothstep(0.0,1.0,pow(perc,0.3))),0.0,1.0);
+}
+
+void mainImage(out vec4 fragColor,in vec2 fragCoord){
+  vec2 uv=fragCoord/iResolution.xy;
+  float ls=1.0;
+  for(int i=0;i<u_line_count;i++){float p=float(i)/float(u_line_count);ls*=(1.0-lineFn(uv,u_line_width*pixel(1.0,iResolution.xy)*(1.0-p),p,PI*p,uMouse,iTime,uAmplitude,uDistance));}
+  float cv=1.0-ls;
+  fragColor=vec4(uColor*cv,cv);
+}
+void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}
+`;
+
+  function startThreads() {
+    const canvas = document.getElementById('threadsCanvas');
+    if (!canvas) return;
+    const hero = document.getElementById('hero');
+    const gl = canvas.getContext('webgl2', {alpha:true}) || canvas.getContext('webgl', {alpha:true});
+    if (!gl) return;
+
+    // compile shaders
+    function compile(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.warn('Threads shader error:', gl.getShaderInfoLog(s)); gl.deleteShader(s); return null;
+      }
+      return s;
+    }
+    const vs = compile(gl.VERTEX_SHADER, threadsVS);
+    const fs = compile(gl.FRAGMENT_SHADER, threadsFS);
+    if (!vs || !fs) return;
+    const program = gl.createProgram();
+    gl.attachShader(program, vs); gl.attachShader(program, fs); gl.linkProgram(program);
+
+    const posLoc = gl.getAttribLocation(program, 'position');
+    const uvLoc = gl.getAttribLocation(program, 'uv');
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,0,0, 1,-1,1,0, -1,1,0,1, 1,1,1,1]), gl.STATIC_DRAW);
+
+    const uloc = {
+      iTime: gl.getUniformLocation(program, 'iTime'),
+      iResolution: gl.getUniformLocation(program, 'iResolution'),
+      uColor: gl.getUniformLocation(program, 'uColor'),
+      uAmplitude: gl.getUniformLocation(program, 'uAmplitude'),
+      uDistance: gl.getUniformLocation(program, 'uDistance'),
+      uMouse: gl.getUniformLocation(program, 'uMouse')
+    };
+
+    let mouse = [0.5, 0.5], targetMouse = [0.5, 0.5];
+    function onMove(e) {
+      const r = hero.getBoundingClientRect();
+      targetMouse = [(e.clientX-r.left)/r.width, 1-(e.clientY-r.top)/r.height];
+    }
+    function onLeave() { targetMouse = [0.5, 0.5]; }
+    hero.addEventListener('mousemove', onMove);
+    hero.addEventListener('mouseleave', onLeave);
+
+    function resize() {
+      const w = hero.clientWidth, h = hero.clientHeight;
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0,0,w,h);
+    }
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(hero);
+
+    function render(t) {
+      mouse[0] += (targetMouse[0]-mouse[0])*0.05;
+      mouse[1] += (targetMouse[1]-mouse[1])*0.05;
+      gl.useProgram(program);
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 16, 0);
+      gl.enableVertexAttribArray(uvLoc);
+      gl.vertexAttribPointer(uvLoc, 2, gl.FLOAT, false, 16, 8);
+      gl.uniform1f(uloc.iTime, t*0.001);
+      gl.uniform3f(uloc.iResolution, canvas.width, canvas.height, canvas.width/canvas.height);
+      gl.uniform3f(uloc.uColor, 0.3, 0.59, 1.0);
+      gl.uniform1f(uloc.uAmplitude, 1.0);
+      gl.uniform1f(uloc.uDistance, 0.0);
+      gl.uniform2f(uloc.uMouse, mouse[0], mouse[1]);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      threadsAnim = requestAnimationFrame(render);
+    }
+    threadsAnim = requestAnimationFrame(render);
+    threadsCtx = { gl, program, canvas, hero, ro, onMove, onLeave };
+  }
+
+  function stopThreads() {
+    if (threadsAnim) cancelAnimationFrame(threadsAnim);
+    if (threadsCtx) {
+      threadsCtx.ro?.disconnect();
+      threadsCtx.hero.removeEventListener('mousemove', threadsCtx.onMove);
+      threadsCtx.hero.removeEventListener('mouseleave', threadsCtx.onLeave);
+      const ext = threadsCtx.gl.getExtension('WEBGL_lose_context');
+      ext?.loseContext();
+      threadsCtx = null; threadsAnim = null;
+    }
+  }
+
+  /* ===========================================
+     ShapeGrid — 黑夜模式图形网格背景
+     =========================================== */
+  let shapeGrids = [];
+
+  const sgPresets = [
+    { shape:'square', direction:'diagonal', speed:0.5, size:40, border:'rgba(0,137,123,0.2)', hover:'rgba(0,137,123,0.08)' },
+    { shape:'circle', direction:'right', speed:0.4, size:36, border:'rgba(13,71,161,0.2)', hover:'rgba(13,71,161,0.08)' },
+    { shape:'square', direction:'down', speed:0.35, size:44, border:'rgba(74,20,140,0.2)', hover:'rgba(74,20,140,0.08)' },
+    { shape:'circle', direction:'left', speed:0.45, size:38, border:'rgba(216,67,21,0.2)', hover:'rgba(216,67,21,0.08)' },
+    { shape:'square', direction:'up', speed:0.3, size:42, border:'rgba(56,189,248,0.2)', hover:'rgba(56,189,248,0.08)' }
+  ];
+
+  function initShapeGrid(container) {
+    if (!container || container.querySelector('.shapegrid-canvas')) return;
+    container.style.position = container.style.position || 'relative';
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'shapegrid-canvas';
+    container.insertBefore(canvas, container.firstChild);
+
+    const ctx = canvas.getContext('2d');
+    let presetIdx = 0;
+    if (container.classList.contains('portal-detail-page--assist')) presetIdx = 0;
+    else if (container.classList.contains('portal-detail-page--doctor')) presetIdx = 1;
+    else if (container.classList.contains('portal-detail-page--admin')) presetIdx = 2;
+    else if (container.classList.contains('portal-detail-page--patient')) presetIdx = 3;
+    else if (container.classList.contains('section-tech')) presetIdx = 4;
+    const cfg = sgPresets[presetIdx % sgPresets.length];
+
+    let numX, numY, offset = {x:0, y:0}, hovered = null, trail = [];
+    const cellOps = new Map();
+    const squareSize = cfg.size, shape = cfg.shape;
+    const isCircle = shape === 'circle';
+    const TWO_PI = Math.PI * 2;
+
+    function resize() {
+      const rect = container.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = rect.width, h = rect.height;
+      canvas.width = Math.ceil(w * dpr); canvas.height = Math.ceil(h * dpr);
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      numX = Math.ceil(w / squareSize) + 3;
+      numY = Math.ceil(h / squareSize) + 3;
+    }
+    resize();
+
+    function drawGrid() {
+      ctx.clearRect(0, 0, canvas.width / (Math.min(window.devicePixelRatio || 1, 2)), canvas.height / (Math.min(window.devicePixelRatio || 1, 2)));
+      const ox = ((offset.x % squareSize) + squareSize) % squareSize;
+      const oy = ((offset.y % squareSize) + squareSize) % squareSize;
+
+      for (let col = -2; col < numX; col++) {
+        for (let row = -2; row < numY; row++) {
+          const sx = col * squareSize + ox, sy = row * squareSize + oy;
+          const key = col + ',' + row;
+          const alpha = cellOps.get(key);
+
+          if (isCircle) {
+            const cx = sx + squareSize / 2, cy = sy + squareSize / 2;
+            if (alpha) {
+              ctx.globalAlpha = alpha;
+              ctx.beginPath(); ctx.arc(cx, cy, squareSize / 2, 0, TWO_PI);
+              ctx.fillStyle = cfg.hover; ctx.fill(); ctx.globalAlpha = 1;
+            }
+            ctx.beginPath(); ctx.arc(cx, cy, squareSize / 2, 0, TWO_PI);
+            ctx.strokeStyle = cfg.border; ctx.stroke();
+          } else {
+            if (alpha) {
+              ctx.globalAlpha = alpha;
+              ctx.fillStyle = cfg.hover;
+              ctx.fillRect(sx, sy, squareSize, squareSize);
+              ctx.globalAlpha = 1;
+            }
+            ctx.strokeStyle = cfg.border;
+            ctx.strokeRect(sx, sy, squareSize, squareSize);
+          }
+        }
+      }
+
+      // Edge fade gradient — prevents hard cutoff at container edges
+      const dprNow = Math.min(window.devicePixelRatio || 1, 2);
+      const cw = canvas.width / dprNow, ch = canvas.height / dprNow;
+      const grad = ctx.createRadialGradient(cw / 2, ch / 2, Math.min(cw, ch) * 0.35, cw / 2, ch / 2, Math.sqrt(cw * cw + ch * ch) / 2);
+      grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
+      grad.addColorStop(1, 'rgba(0, 0, 0, 0.04)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, cw, ch);
+    }
+
+    function updateCells() {
+      const targets = new Map();
+      if (hovered) targets.set(hovered.x + ',' + hovered.y, 1);
+      for (let i = 0; i < trail.length; i++) {
+        const t = trail[i];
+        targets.set(t.x + ',' + t.y, (trail.length - i) / (trail.length + 1));
+      }
+      for (const [key] of targets) {
+        if (!cellOps.has(key)) cellOps.set(key, 0);
+      }
+      for (const [key, opacity] of cellOps) {
+        const target = targets.get(key) || 0;
+        const next = opacity + (target - opacity) * 0.15;
+        if (next < 0.005) cellOps.delete(key);
+        else cellOps.set(key, next);
+      }
+    }
+
+    function onMouse(e) {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+      const ox = ((offset.x % squareSize) + squareSize) % squareSize;
+      const oy = ((offset.y % squareSize) + squareSize) % squareSize;
+      const col = Math.floor((mx - ox) / squareSize);
+      const row = Math.floor((my - oy) / squareSize);
+      if (!hovered || hovered.x !== col || hovered.y !== row) {
+        if (hovered) { trail.unshift({...hovered}); if (trail.length > 5) trail.length = 5; }
+        hovered = { x: col, y: row };
+      }
+    }
+    function onLeave() {
+      if (hovered) { trail.unshift({...hovered}); if (trail.length > 5) trail.length = 5; }
+      hovered = null;
+    }
+    canvas.addEventListener('mousemove', onMouse);
+    canvas.addEventListener('mouseleave', onLeave);
+
+    function animate() {
+      const s = cfg.speed * 0.5;
+      const wrap = squareSize;
+      switch (cfg.direction) {
+        case 'right': offset.x = (offset.x - s + wrap) % wrap; break;
+        case 'left': offset.x = (offset.x + s + wrap) % wrap; break;
+        case 'up': offset.y = (offset.y + s + wrap) % wrap; break;
+        case 'down': offset.y = (offset.y - s + wrap) % wrap; break;
+        case 'diagonal': offset.x = (offset.x - s + wrap) % wrap; offset.y = (offset.y - s + wrap) % wrap; break;
+      }
+      updateCells(); drawGrid();
+    }
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(container);
+
+    const entry = { canvas, animate, resize, cfg, onMouse, onLeave };
+    shapeGrids.push(entry);
+    if (shapeGrids.length === 1) {
+      (function sharedRAF() {
+        shapeGrids.forEach(g => g.animate());
+        requestAnimationFrame(sharedRAF);
+      })();
+    }
+  }
+
+  function destroyShapeGrids() {
+    shapeGrids.forEach(g => {
+      g.canvas.removeEventListener('mousemove', g.onMouse);
+      g.canvas.removeEventListener('mouseleave', g.onLeave);
+      g.canvas.remove();
+    });
+    shapeGrids = [];
+  }
+
+  /* ===========================================
+     Theme-aware init
+     =========================================== */
+  let pixelCardsInit = false;
+  function initAllPixelCards() {
+    if (pixelCardsInit) return;
+    document.querySelectorAll('.portals-cards__item, .fm-card, .tech-card, .case-card').forEach(initPixelCard);
+    pixelCardsInit = true;
+  }
+
+  function startAllDarkEffects() {
+    if (html.getAttribute('data-theme') !== 'dark') return;
+    if (!threadsCtx) startThreads();
+    initAllPixelCards();
+    if (shapeGrids.length === 0) {
+      document.querySelectorAll('.portal-detail-page, .section-tech').forEach(initShapeGrid);
+    }
+  }
+
+  function stopAllDarkEffects() {
+    stopThreads();
+    destroyShapeGrids();
+  }
+
+  function setupThemeEffects() {
+    if (!threadsCtx) startThreads();
+    initAllPixelCards();
+    if (shapeGrids.length === 0) {
+      document.querySelectorAll('.portal-detail-page, .section-tech').forEach(initShapeGrid);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', setupThemeEffects);
+  if (document.readyState !== 'loading') setupThemeEffects();
+
+  </script>
+
+</body>
+</html>
