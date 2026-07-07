@@ -419,6 +419,7 @@
   }
   .fm-card__title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
   .fm-card__desc { color: var(--text-secondary); font-size: 0.87rem; line-height: 1.6; }
+  .fm-card[data-gallery] { cursor: pointer; }
 
   .portal-highlights {
     display: flex; gap: 24px; flex-wrap: wrap; margin-top: 48px;
@@ -1139,22 +1140,22 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>医助端 <span class="tag" style="background:var(--gradient-primary);" data-gallery='["screenshots/系统截图/患者筛查追踪.png","screenshots/系统截图/一体化门诊AI筛查提示.png"]'>诊前筛查</span></h2>
+        <h2>医助端 <span class="tag" style="background:var(--gradient-primary);">诊前筛查</span></h2>
         <p class="lead">面向门诊预检与助理人员，提供诊前信息采集、慢病风险智能筛查、精准分诊与归档管理一站式服务。对接HIS系统自动汇集患者数据，结合AI风险评估模型，高效抓取高危人群，大幅降低医生筛查负担与漏管风险。</p>
         <p class="detail">当患者挂号就诊时，系统自动匹配患者历史诊疗数据，根据诊断、检验、处方等多维信息触发慢病筛查条件。对于新发疑似患者，通过智能问卷采集补充信息后，AI模型实时计算风险评分并推荐分诊方向。筛查结果一键生成结构化慢病档案，按高危、确诊、低风险三级分层管理，并自动提醒医生对未上报高危患者进行追踪确认。</p>
       </div>
       <div class="fm-grid">
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/智能信息采集.png"]'>
           <div class="fm-card__icon" style="background:rgba(0,105,92,0.1);">📋</div>
           <div class="fm-card__title">智能信息采集</div>
           <div class="fm-card__desc">自动对接HIS获取患者基本信息、既往病史与检验数据，支持语音录入，减少90%手工填写</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/多病种风险筛查.png"]'>
           <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">🔍</div>
           <div class="fm-card__title">多病种风险筛查</div>
           <div class="fm-card__desc">基于AI模型的6大慢病自动风险评估，生成筛查报告辅助分诊，精准识别高危人群</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/智能预检分诊.png"]'>
           <div class="fm-card__icon" style="background:rgba(13,148,136,0.1);">🗂️</div>
           <div class="fm-card__title">智能预检分诊</div>
           <div class="fm-card__desc">根据筛查结果智能推荐分诊科室与优先级，减少患者候诊时间，优化门诊资源配置</div>
@@ -1162,17 +1163,17 @@
       </div>
     </div>
     <div class="fm-grid" style="margin-top:20px;">
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/动态问卷管理.png"]'>
         <div class="fm-card__icon" style="background:rgba(21,101,192,0.1);">📝</div>
         <div class="fm-card__title">动态问卷管理</div>
         <div class="fm-card__desc">按病种自动推送定制化问诊问卷，支持历史数据复填与既往检查一键导入</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/漏报智能提醒.png"]'>
         <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">🔔</div>
         <div class="fm-card__title">漏报智能提醒</div>
         <div class="fm-card__desc">自动识别未上报高危患者并弹窗提示，一键抓取快速生成上报信息，杜绝漏管</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/筛查结果归档.png"]'>
         <div class="fm-card__icon" style="background:rgba(106,27,154,0.1);">📊</div>
         <div class="fm-card__title">筛查结果归档</div>
         <div class="fm-card__desc">筛查结果一键生成结构化档案，按风险分级分类管理，历史记录可追溯</div>
@@ -1194,22 +1195,22 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>医生端 <span class="tag" style="background:var(--gradient-cool);" data-gallery='["screenshots/系统截图/患者全病程慢病档案画像.png","screenshots/系统截图/个性化生活方式干预.png"]'>诊后管理</span></h2>
+        <h2>医生端 <span class="tag" style="background:var(--gradient-cool);">诊后管理</span></h2>
         <p class="lead">为临床医生提供诊中智能辅助与诊后全程管理，集成CDSS临床决策支持系统。基于权威医学知识图谱与医疗大模型，在医生书写病历、开具处方时动态触发，实时提供鉴别诊断建议、治疗方案推荐、合理用药指导与并发症风险预警。让每一位临床医生都拥有AI专家团队的决策支持。</p>
         <p class="detail">CDSS引擎深度整合六大慢病知识图谱，涵盖疾病关系、药物相互作用、标准治疗路径等结构化医学知识。当医生录入患者症状与体征时，AI自动匹配可能的诊断方向并提供循证依据；开具处方时智能审查药物禁忌症与相互作用，按指南推荐标准化用药方案。结合患者风险分层与合并症情况，一键生成包含饮食、运动、用药在内的个性化健康管理计划。</p>
       </div>
       <div class="fm-grid">
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/CDSS智能诊断.png"]'>
           <div class="fm-card__icon" style="background:rgba(13,71,161,0.1);">🧠</div>
           <div class="fm-card__title">CDSS 智能诊断</div>
           <div class="fm-card__desc">基于知识图谱与AI大模型的实时鉴别诊断建议，降低误诊漏诊率，提升诊疗质量</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/合理用药指导.png"]'>
           <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">💊</div>
           <div class="fm-card__title">合理用药指导</div>
           <div class="fm-card__desc">处方开具时自动提示常用药物、禁忌症与药物相互作用，保障用药安全合规</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/智能鉴别诊断.png"]'>
           <div class="fm-card__icon" style="background:rgba(33,150,243,0.1);">💡</div>
           <div class="fm-card__title">智能鉴别诊断</div>
           <div class="fm-card__desc">输入患者症状后AI自动列出鉴别诊断方向，匹配医学知识库提供循证依据</div>
@@ -1217,17 +1218,17 @@
       </div>
     </div>
     <div class="fm-grid" style="margin-top:20px;">
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/关键指标趋势.png"]'>
         <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">📈</div>
         <div class="fm-card__title">关键指标趋势</div>
         <div class="fm-card__desc">可视化展示血压、血糖、血脂等指标历史趋势曲线，异常值自动标注并触发预警</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/个性化管理方案.png"]'>
         <div class="fm-card__icon" style="background:rgba(106,27,154,0.1);">🎯</div>
         <div class="fm-card__title">个性化管理方案</div>
         <div class="fm-card__desc">结合患者风险分层与合并症情况，自动生成综合饮食、运动、用药的干预计划</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/综合健康报告.png"]'>
         <div class="fm-card__icon" style="background:rgba(13,148,136,0.1);">📑</div>
         <div class="fm-card__title">综合健康报告</div>
         <div class="fm-card__desc">自动生成患者健康评估报告，涵盖风险评估、并发症预警、管理效果评价</div>
@@ -1249,22 +1250,22 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>管理端 <span class="tag" style="background:var(--gradient-mixed);" data-gallery='["screenshots/系统截图/区域慢病数据驾驶舱.png","screenshots/系统截图/慢病区域质量控制实施监测1.png"]'>数据驾驶舱</span></h2>
+        <h2>管理端 <span class="tag" style="background:var(--gradient-mixed);">数据驾驶舱</span></h2>
         <p class="lead">面向医院管理层与公卫管理部门，提供全域慢病数据驾驶舱、质控指标动态监测、多维度统计分析与自动报表。推动慢病管理从经验驱动全面转向数据驱动，实现精细化、可量化的管理决策。</p>
         <p class="detail">平台内置6大慢病病种完整质控指标体系，涵盖血压控制率、血糖达标率、规范管理率等核心考核指标，自动按日/周/月/季周期计算并刷新。支持按省、市、区、院多级自由钻取分析，灵活配置考核维度与阈值。数据驾驶舱以可视化大屏形式呈现辖区高危人群热力图、慢病患病人数趋势、治疗覆盖率变化、双向转诊执行率等30+核心图表。所有报表支持一键导出Excel/PDF，满足各级卫健委绩效考核与上报需求。</p>
       </div>
       <div class="fm-grid">
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/全域数据驾驶舱.png"]'>
           <div class="fm-card__icon" style="background:rgba(74,20,140,0.1);">🗺️</div>
           <div class="fm-card__title">全域数据驾驶舱</div>
           <div class="fm-card__desc">动态展示辖区高危人群分布、患者画像、并发症发生率、治疗覆盖率等核心指标</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/质控效能分析.png"]'>
           <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">📊</div>
           <div class="fm-card__title">质控效能分析</div>
           <div class="fm-card__desc">自动生成血压控制率、血糖达标率等核心质控报表，支持多期、多维度对比</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/权限精细管控.png"]'>
           <div class="fm-card__icon" style="background:rgba(156,39,176,0.1);">🔐</div>
           <div class="fm-card__title">权限精细管控</div>
           <div class="fm-card__desc">支持院-科-组多层级角色权限配置，数据安全隔离，满足集团化管理合规要求</div>
@@ -1272,17 +1273,17 @@
       </div>
     </div>
     <div class="fm-grid" style="margin-top:20px;">
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/组织架构管理.png"]'>
           <div class="fm-card__icon" style="background:rgba(21,101,192,0.1);">🧑</div>
           <div class="fm-card__title">组织架构管理</div>
         <div class="fm-card__desc">支持院-科-组多层组织架构配置，精细化角色与权限体系，满足集团化医院管理需要</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/双向转诊追踪.png"]'>
         <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">🔄</div>
         <div class="fm-card__title">双向转诊追踪</div>
         <div class="fm-card__desc">上下级医疗机构间转诊全流程追踪与统计，自动计算转诊执行率与响应时效</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/质控报告体系.png"]'>
         <div class="fm-card__icon" style="background:rgba(13,148,136,0.1);">📋</div>
         <div class="fm-card__title">质控报告体系</div>
         <div class="fm-card__desc">6大慢病完整质控指标体系，自动计算一键导出，全面满足卫健委绩效考核要求</div>
@@ -1304,22 +1305,22 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>医生移动端 <span class="tag" style="background:linear-gradient(135deg,#c2185b,#f48fb1);" data-gallery='["screenshots/系统截图/基层医生账上慢病助手.png"]'>移动管理</span></h2>
+        <h2>医生移动端 <span class="tag" style="background:linear-gradient(135deg,#c2185b,#f48fb1);">移动管理</span></h2>
         <p class="lead">面向临床医生的移动慢病管理工具，支持医生随时随地查看患者慢病档案、处理待办任务、完成随访与健康干预。通过手机端实时掌握患者健康状况，打破院内空间限制，提升慢病管理效率与患者触达率。</p>
         <p class="detail">系统自动归集来自门诊筛查、住院诊断、公卫上报等多渠道的待办任务，涵盖待建档、待随访、复诊预约、预警处理、健康干预、在线留言6大类型，按优先级排序并以红点徽标动态提醒。医生可通过手机端快速查看患者360度慢病档案——包括筛查记录、历次就诊病历、检查检验结果、健康监测趋势与异常预警历史，辅助制定个性化管理方案并一键推送至患者微信端。随访支持GPS定位拍照签字，确保真实性可核验。</p>
       </div>
       <div class="fm-grid">
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/工作概况.png"]'>
           <div class="fm-card__icon" style="background:rgba(194,24,91,0.1);">📋</div>
           <div class="fm-card__title">工作概况</div>
           <div class="fm-card__desc">展示在管高危人群与确诊患者数量，支持查看患者慢病档案，一目了然掌握工作全局</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/待办事项提醒.png"]'>
           <div class="fm-card__icon" style="background:rgba(233,30,99,0.1);">⏰</div>
           <div class="fm-card__title">待办事项提醒</div>
           <div class="fm-card__desc">待建档、待随访、复诊预约、预警处理、健康干预、在线留言6类待办动态提示</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/我的患者.png"]'>
           <div class="fm-card__icon" style="background:rgba(244,143,177,0.15);">👥</div>
           <div class="fm-card__title">我的患者</div>
           <div class="fm-card__desc">六慢病高危及确诊患者列表，支持按姓名、身份证号查找，新增手动建档</div>
@@ -1327,17 +1328,17 @@
       </div>
     </div>
     <div class="fm-grid" style="margin-top:20px;">
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/患者服务工具.png"]'>
         <div class="fm-card__icon" style="background:rgba(194,24,91,0.1);">🛠️</div>
         <div class="fm-card__title">患者服务工具</div>
         <div class="fm-card__desc">一键查看患者随访记录、健康管理方案与转诊记录，支持现场随访拍照签字核验</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/患者慢病档案.png"]'>
         <div class="fm-card__icon" style="background:rgba(233,30,99,0.1);">📁</div>
         <div class="fm-card__title">患者慢病档案</div>
         <div class="fm-card__desc">风险筛查、就诊检查、健康监测、异常预警等全病程数据，360度掌握患者状况</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/在线咨询留言.png"]'>
         <div class="fm-card__icon" style="background:rgba(244,143,177,0.15);">💬</div>
         <div class="fm-card__title">在线咨询留言</div>
         <div class="fm-card__desc">实时接收患者在线咨询与留言，支持手机端快速回复，拉近医患关系</div>
@@ -1359,22 +1360,22 @@
   <div class="section__inner">
     <div class="portal-dp__hero">
       <div class="portal-dp__text">
-        <h2>患者端 <span class="tag" style="background:var(--gradient-warm);" data-gallery='["screenshots/系统截图/慢病助手移动端.png"]'>自我管理</span></h2>
+        <h2>患者端 <span class="tag" style="background:var(--gradient-warm);">自我管理</span></h2>
         <p class="lead">面向慢病患者及高危人群，通过移动端（微信服务号/小程序）提供健康自测、指标记录、用药提醒、健康教育、在线咨询等功能。帮助患者建立科学的自我管理习惯，提升治疗依从性与长期健康结局。</p>
         <p class="detail">患者通过微信服务号或互联网医院入口即可一键绑定，零门槛使用。日常可随时手录血压、血糖、体重等指标，也可通过蓝牙连接电子血压计、血糖仪实现数据自动上传，系统自动生成趋势曲线并对比正常参考范围，异常值即时预警同步推送至签约医生端。医生通过平台向患者精准推送个性化健康教育内容与用药打卡任务，患者完成阅读和打卡后自动记录依从数据。支持图文在线咨询签约医生，足不出户获得专业健康指导，家人账号可绑定协助老年患者代为管理。</p>
       </div>
       <div class="fm-grid">
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/移动健康管理.png"]'>
           <div class="fm-card__icon" style="background:rgba(216,67,21,0.1);">📱</div>
           <div class="fm-card__title">移动健康管理</div>
           <div class="fm-card__desc">微信服务号+小程序入口，随时记录血压、血糖等指标，自动生成趋势曲线</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/智能用药打卡.png"]'>
           <div class="fm-card__icon" style="background:rgba(198,40,40,0.1);">🔔</div>
           <div class="fm-card__title">智能用药打卡</div>
           <div class="fm-card__desc">自动推送用药提醒，支持打卡追溯，未完成项醒目提示，强化患者遵医行为</div>
         </div>
-        <div class="fm-card">
+        <div class="fm-card" data-gallery='["screenshots/系统截图/居家健康监测.png"]'>
           <div class="fm-card__icon" style="background:rgba(230,81,0,0.1);">🏠</div>
           <div class="fm-card__title">居家健康监测</div>
           <div class="fm-card__desc">蓝牙对接血压计、血糖仪等设备，数据自动上传，异常值即时预警通知医生</div>
@@ -1382,17 +1383,17 @@
       </div>
     </div>
     <div class="fm-grid" style="margin-top:20px;">
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/健康教育阅读.png"]'>
         <div class="fm-card__icon" style="background:rgba(0,137,123,0.1);">📖</div>
         <div class="fm-card__title">健康教育阅读</div>
         <div class="fm-card__desc">医生精准推送个性化健康知识，支持PDF文档阅读，帮助患者建立疾病认知</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/在线图文问诊.png"]'>
         <div class="fm-card__icon" style="background:rgba(21,101,192,0.1);">💬</div>
         <div class="fm-card__title">在线图文问诊</div>
         <div class="fm-card__desc">支持图文在线咨询签约医生，实时沟通解决健康疑惑，降低不必要的线下就诊</div>
       </div>
-      <div class="fm-card">
+      <div class="fm-card" data-gallery='["screenshots/系统截图/家人绑定管理.png"]'>
         <div class="fm-card__icon" style="background:rgba(106,27,154,0.1);">👨‍👩‍👧</div>
         <div class="fm-card__title">家人绑定管理</div>
         <div class="fm-card__desc">支持绑定家人账号，帮助老年患者进行健康数据代录、查看与管理</div>
@@ -2095,9 +2096,9 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}
     renderGallery();
   }
 
-  // Event: click case-card or tag with data-gallery
+  // Event: click case-card, fm-card, or tag with data-gallery
   document.addEventListener('click', (e) => {
-    const el = e.target.closest('.case-card, .tag[data-gallery]');
+    const el = e.target.closest('.case-card, .fm-card, .tag[data-gallery]');
     if (!el || !el.dataset.gallery) return;
     let images;
     try { images = JSON.parse(el.dataset.gallery); } catch(_) { return; }
