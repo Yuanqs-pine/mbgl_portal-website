@@ -375,7 +375,7 @@
   .cardswap-card__left { display: flex; flex-direction: column; align-items: center; gap: 9px; flex-shrink: 0; min-width: 70px; }
   .cardswap-card__icon { font-size: 1.6rem; }
   .cardswap-card__name { font-size: 0.95rem; font-weight: 750; }
-  .cardswap-card__right { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-top: 0; }
+  .cardswap-card__right { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-top: 5px; }
   .cardswap-card__desc { font-size: 0.78rem; line-height: 1.6; color: #555; }
   [data-theme="dark"] .cardswap-card__desc { color: #aaa; }
   .cardswap-card__arrow {
@@ -1124,6 +1124,7 @@
   </div>
 </section>
 
+<!-- ============================================ -->
 <!--  Portal Overview - Split Layout + CardSwap   -->
 <!-- ============================================ -->
 <section class="section" id="portals" style="padding-top:80px; padding-bottom:20px; background: linear-gradient(180deg, rgba(100,181,246,0.10) 0%, rgba(56,189,248,0.10) 30%, rgba(0,150,136,0.08) 70%, rgba(0,137,123,0.06) 100%);">
@@ -1145,23 +1146,23 @@
       <div class="cardswap-container" id="cardSwapContainer">
         <a href="#portal-assist" class="cardswap-card cardswap-card--assist">
           <div class="cardswap-card__left"><div class="cardswap-card__name">医助端</div><div class="cardswap-card__icon">🩺</div></div>
-          <div class="cardswap-card__right"><div class="cardswap-card__desc">诊前信息采集、慢病风险智能筛查与精准分诊，AI自动识别高危人群。对接HIS系统汇集患者数据，结合风险评估模型高效抓取高危患者</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="cardswap-card__right"><div class="cardswap-card__desc">诊前信息采集、慢病风险智能筛查与精准分诊，AI自动识别高危人群。对接HIS系统汇集患者数据，结合风险评估模型高效抓取高危患者，一键归档至慢病档案</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </a>
         <a href="#portal-doctor" class="cardswap-card cardswap-card--doctor">
           <div class="cardswap-card__left"><div class="cardswap-card__name">医生端</div><div class="cardswap-card__icon">👨‍⚕️</div></div>
-          <div class="cardswap-card__right"><div class="cardswap-card__desc">集成CDSS临床决策支持，知识图谱与AI大模型驱动实时诊断与治疗方案推荐。让临床医生拥有AI专家团队决策支持，提升诊疗质量</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="cardswap-card__right"><div class="cardswap-card__desc">集成CDSS临床决策支持，知识图谱与AI大模型驱动实时诊断与治疗方案推荐。让临床医生拥有AI专家团队决策支持，提升诊疗质量与合理用药安全保障</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </a>
         <a href="#portal-admin" class="cardswap-card cardswap-card--admin">
           <div class="cardswap-card__left"><div class="cardswap-card__name">管理端</div><div class="cardswap-card__icon">📊</div></div>
-          <div class="cardswap-card__right"><div class="cardswap-card__desc">全域数据驾驶舱、质控指标动态监测与多维度统计分析，支持多级钻取。6大慢病质控指标体系自动计算，一键导出报告</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="cardswap-card__right"><div class="cardswap-card__desc">全域数据驾驶舱、质控指标动态监测与多维度统计分析，支持多级钻取。6大慢病质控指标体系自动计算，一键导出报告，全面满足绩效考核要求</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </a>
         <a href="#portal-mobile" class="cardswap-card cardswap-card--mobile">
           <div class="cardswap-card__left"><div class="cardswap-card__name">医生移动端</div><div class="cardswap-card__icon">📲</div></div>
-          <div class="cardswap-card__right"><div class="cardswap-card__desc">医生移动随访、待办任务、在线咨询与健康干预，随时随地管理患者。打破院内空间限制，提升管理效率与患者触达率</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="cardswap-card__right"><div class="cardswap-card__desc">医生移动随访、待办任务、在线咨询与健康干预，随时随地管理患者。打破院内空间限制，提升管理效率与患者触达率，实现移动办公闭环管理</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </a>
         <a href="#portal-patient" class="cardswap-card cardswap-card--patient">
           <div class="cardswap-card__left"><div class="cardswap-card__name">患者端</div><div class="cardswap-card__icon">🧑</div></div>
-          <div class="cardswap-card__right"><div class="cardswap-card__desc">患者移动端健康自测、指标记录与用药提醒，图文在线问诊签约医生。帮患者建立科学自我管理习惯，提升治疗依从性</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
+          <div class="cardswap-card__right"><div class="cardswap-card__desc">患者移动端健康自测、指标记录与用药提醒，图文在线问诊签约医生。帮患者建立科学自我管理习惯，提升治疗依从性和长期健康结局改善</div><div class="cardswap-card__arrow"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></div></div>
         </a>
       </div>
     </div>
@@ -2112,9 +2113,9 @@ void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}
     swap(); setInterval(swap, 5000);
   })();
 
-  </script>
-
-<!-- Case Gallery Overlay -->
+  /* ===========================================
+     Case Gallery
+     =========================================== */
   document.addEventListener('DOMContentLoaded', () => {
   const galleryOverlay = document.getElementById('caseGallery');
   const galleryImg = document.getElementById('galleryImg');
